@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { PixelButton } from './ui/PixelButton';
 
 export const Hero: React.FC = () => {
@@ -25,23 +25,25 @@ export const Hero: React.FC = () => {
   };
 
   // Generate random stars
-  const stars = Array.from({ length: 50 }).map((_, i) => {
-    const size = Math.random() * 3 + 1;
-    return (
-      <div 
-        key={i}
-        className="absolute bg-white rounded-full animate-[twinkle_3s_ease-in-out_infinite]"
-        style={{
-          width: `${size}px`,
-          height: `${size}px`,
-          top: `${Math.random() * 100}%`,
-          left: `${Math.random() * 100}%`,
-          animationDelay: `${Math.random() * 3}s`,
-          opacity: Math.random() * 0.5 + 0.2
-        }}
-      />
-    );
-  });
+  const stars = useMemo(() => {
+    return Array.from({ length: 50 }).map((_, i) => {
+      const size = Math.random() * 3 + 1;
+      return (
+        <div 
+          key={i}
+          className="absolute bg-white rounded-full animate-[twinkle_3s_ease-in-out_infinite]"
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+            animationDelay: `${Math.random() * 3}s`,
+            opacity: Math.random() * 0.5 + 0.2
+          }}
+        />
+      );
+    });
+  }, []);
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg-primary">
@@ -53,7 +55,7 @@ export const Hero: React.FC = () => {
       <div className="relative z-10 text-center px-4 flex flex-col items-center">
         {/* Delivery Character Animation */}
         <div className="h-32 w-32 mb-8 animate-[run-in_1.5s_ease-out_forwards] flex items-center justify-center">
-          {/* Placeholder for character sprite */}
+          {/* TODO: ぴぽや倉庫のドット絵キャラ画像に差し替える */}
           <div className="text-6xl filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
             🏃💨
           </div>
