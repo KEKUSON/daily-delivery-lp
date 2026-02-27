@@ -31,9 +31,9 @@ export const PLANS: Plan[] = [
   {
     id: 'ume',
     name: '梅プラン',
-    price: 100,
+    price: 200,
     description: 'まずはお試しに！',
-    features: ['1日2記事', 'タイトル各1案'],
+    features: ['1日2記事', 'タイトル各3案'],
   },
   {
     id: 'take',
