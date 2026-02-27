@@ -20,33 +20,81 @@
   --animate-pulse-glow: pulse-glow 2s infinite;
   --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
   --animate-twinkle: twinkle 3s ease-in-out infinite;
+  --animate-shooting-star: shooting-star 4s linear infinite;
 }
 
 @keyframes run-in {
-  0% { transform: translateX(-100vw); }
-  80% { transform: translateX(10px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-100vw);
+  }
+
+  80% {
+    transform: translateX(10px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
+
 @keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
 }
+
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
 }
+
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 5px var(--color-accent); }
-  50% { box-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 5px var(--color-accent);
+  }
+
+  50% {
+    box-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent);
+  }
 }
+
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
+
 @keyframes rise {
   0% { opacity: 0; transform: translateY(0); }
   10% { opacity: 0.6; }
@@ -54,15 +102,59 @@
   100% { opacity: 0; transform: translateY(-80vh); }
 }
 
+@keyframes shooting-star {
+  0% {
+    transform: translate(0, 0) rotate(-45deg);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translate(-100vw, 100vh) rotate(-45deg);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-100vw, 100vh) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes sprite-walk {
+  from {
+    background-position: 0px 0;
+  }
+
+  to {
+    background-position: -512px 0;
+  }
+}
+
 body {
   @apply bg-bg-primary text-text font-sans m-0 p-0 overflow-x-hidden;
 }
 
-h1, h2, h3, h4, h5, h6, .font-retro {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-retro {
   @apply font-retro;
 }
 
 /* AI生成したアセット等のドット絵をくっきり表示するためのユーティリティ */
 .pixelated {
   image-rendering: pixelated;
+}
+
+/* スプライトシートアニメーション（1フレーム128px × 4列×4行 = 512px 幅/高さと仮定） */
+.sprite-walk {
+  width: 128px;
+  height: 128px;
+  background-image: url('./assets/sprites/hero_sprite.png');
+  background-size: 512px 512px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  animation: sprite-walk 0.6s steps(4) infinite;
 }

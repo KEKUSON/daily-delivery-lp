@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import type { FC } from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import type { FC, MouseEvent } from 'react';
 import { PixelButton } from './ui/PixelButton';
-import heroSprite from '../assets/sprites/hero_sprite.png';
 import heroMain from '../assets/infographics/hero_main.png';
 
 export const Hero: FC = () => {
   const [text, setText] = useState('');
+  const [isMobile, setIsMobile] = useState(false);
   const fullText = "毎日のネタ探し、まだ自分でやってんの？";
 
   useEffect(() => {
@@ -20,6 +20,27 @@ export const Hero: FC = () => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    // Check if device is mobile (touch device)
+    const mediaQuery = window.matchMedia('(pointer: coarse)');
+    setIsMobile(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
+    if (isMobile) return;
+
+    // Normalize mouse position between -1 and 1
+    const x = (e.clientX / window.innerWidth) * 2 - 1;
+    const y = (e.clientY / window.innerHeight) * 2 - 1;
+
+    e.currentTarget.style.setProperty('--mouse-x', x.toString());
+    e.currentTarget.style.setProperty('--mouse-y', y.toString());
+  };
+
   const scrollToNext = () => {
     const nextSection = document.getElementById('pain-section');
     if (nextSection) {
@@ -27,42 +48,53 @@ export const Hero: FC = () => {
     }
   };
 
-  // Generate random stars
-  const [stars] = useState(() => {
-    return Array.from({ length: 50 }).map((_, i) => {
-      const size = Math.random() * 3 + 1;
-      return (
-        <div
-          key={i}
-          className="absolute bg-white rounded-full animate-[twinkle_3s_ease-in-out_infinite]"
-          style={{
-            width: `${size}px`,
-            height: `${size}px`,
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 3}s`,
-            opacity: Math.random() * 0.5 + 0.2
-          }}
-        />
-      );
-    });
-  });
+  // Generate random stars data
+  const starsData = useMemo(() => {
+    return Array.from({ length: 50 }).map(() => ({
+      size: Math.random() * 3 + 1,
+      top: Math.random() * 100,
+      left: Math.random() * 100,
+      delay: Math.random() * 3,
+      opacity: Math.random() * 0.5 + 0.2
+    }));
+  }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg-primary">
-      {/* Star Background */}
-      <div className="absolute inset-0 z-0">
-        {stars}
+    <section
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg-primary"
+      onMouseMove={handleMouseMove}
+    >
+      {/* Star Background with Parallax */}
+      <div
+        className="absolute inset-0 z-0 transition-transform duration-200 ease-out"
+        style={!isMobile ? { transform: `translate(calc(var(--mouse-x, 0) * -30px), calc(var(--mouse-y, 0) * -30px))` } : {}}
+      >
+        {starsData.map((star, i) => (
+          <div
+            key={i}
+            className="absolute bg-white rounded-full animate-[twinkle_3s_ease-in-out_infinite]"
+            style={{
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              top: `${star.top}%`,
+              left: `${star.left}%`,
+              animationDelay: `${star.delay}s`,
+              opacity: star.opacity
+            }}
+          />
+        ))}
+        {/* Shooting Stars */}
+        <div className="absolute top-[10%] left-[80%] w-[100px] h-[2px] bg-gradient-to-r from-white to-transparent opacity-0 animate-[shooting-star_5s_ease-in-out_infinite]" />
+        <div className="absolute top-[30%] left-[90%] w-[150px] h-[2px] bg-gradient-to-r from-accent-cyan to-transparent opacity-0 animate-[shooting-star_8s_ease-in-out_infinite_2s]" />
       </div>
 
-      <div className="relative z-10 text-center px-4 flex flex-col items-center">
-        {/* Delivery Character Animation */}
+      <div
+        className="relative z-10 text-center px-4 flex flex-col items-center transition-transform duration-200 ease-out"
+        style={!isMobile ? { transform: `translate(calc(var(--mouse-x, 0) * 15px), calc(var(--mouse-y, 0) * 15px))` } : {}}
+      >
+        {/* Delivery Character Animation (CSS Sprite) */}
         <div className="h-32 w-32 mb-8 animate-[run-in_1.5s_ease-out_forwards] flex items-center justify-center">
-          <img
-            src={heroSprite}
-            alt="配達員キャラクター"
-            className="w-full h-full object-contain pixelated filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]"
-          />
+          <div className="sprite-walk pixelated filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
         </div>
 
         {/* Main Visual Concept */}
