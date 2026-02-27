@@ -20,32 +20,32 @@
   --animate-pulse-glow: pulse-glow 2s infinite;
   --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
   --animate-twinkle: twinkle 3s ease-in-out infinite;
+}
 
-  @keyframes run-in {
-    0% { transform: translateX(-100vw); }
-    80% { transform: translateX(10px); }
-    100% { transform: translateX(0); }
-  }
-  @keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-  }
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 5px var(--color-accent); }
-    50% { box-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent); }
-  }
-  @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
+@keyframes run-in {
+  0% { transform: translateX(-100vw); }
+  80% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px var(--color-accent); }
+  50% { box-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent); }
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
 
 body {

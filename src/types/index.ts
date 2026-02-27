@@ -17,3 +17,10 @@ export interface PainPoint {
   id: string;
   text: string;
 }
+
+export interface SampleArticle {
+  title: string;
+  url: string;
+  summary: string;
+  titleOptions: string[];
+}

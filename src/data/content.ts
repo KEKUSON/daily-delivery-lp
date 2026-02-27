@@ -1,4 +1,4 @@
-import { Plan, Feature, PainPoint } from '../types';
+import { Plan, Feature, PainPoint, SampleArticle } from '../types';
 
 export const PAIN_POINTS: PainPoint[] = [
   { id: 'pain-1', text: '毎日ネタ探しで2時間消える…' },
@@ -53,3 +53,16 @@ export const LINKS = {
   form: '#GOOGLE_FORM_URL',
   xDm: 'https://x.com/keku723306'
 };
+
+export const SAMPLE_ARTICLES: SampleArticle[] = [
+  {
+    title: '記事①',
+    url: 'https://example.com/article1',
+    summary: '〇〇容疑者が...',
+    titleOptions: [
+      '〇〇の今の様子がヤバい',
+      '〇〇が語った本音',
+      '〇〇の裏に何があったのか'
+    ]
+  }
+];
