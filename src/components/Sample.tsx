@@ -1,4 +1,3 @@
-import React from 'react';
 import { RPGWindow } from './ui/RPGWindow';
 import { SAMPLE_ARTICLES } from '../data/content';
 import { useScrollReveal } from '../hooks/useScrollReveal';

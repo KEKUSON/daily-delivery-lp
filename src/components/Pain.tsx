@@ -1,4 +1,3 @@
-import React from 'react';
 import { RPGWindow } from './ui/RPGWindow';
 import { PAIN_POINTS } from '../data/content';
 import { useScrollReveal } from '../hooks/useScrollReveal';

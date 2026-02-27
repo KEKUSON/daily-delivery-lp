@@ -1,4 +1,4 @@
-import { Plan, Feature, PainPoint, SampleArticle } from '../types';
+import type { Plan, Feature, PainPoint, SampleArticle } from '../types';
 
 export const PAIN_POINTS: PainPoint[] = [
   { id: 'pain-1', text: '毎日ネタ探しで2時間消える…' },

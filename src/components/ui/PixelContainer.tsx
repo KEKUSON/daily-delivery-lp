@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface PixelContainerProps {
   children: React.ReactNode;
   className?: string;

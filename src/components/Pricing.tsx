@@ -1,4 +1,3 @@
-import React from 'react';
 import { PLANS, PRICING_DESCRIPTION } from '../data/content';
 import { ShopCard } from './ui/ShopCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';

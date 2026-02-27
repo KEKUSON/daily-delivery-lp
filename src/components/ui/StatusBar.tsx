@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface StatusBarProps {
   label: string;
   level: number;

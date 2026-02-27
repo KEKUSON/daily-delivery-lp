@@ -1,5 +1,3 @@
-import React from 'react';
-
 type PixelButtonProps<E extends React.ElementType> = {
   as?: E;
   variant?: 'primary' | 'secondary';

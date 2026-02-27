@@ -1,4 +1,3 @@
-import React from 'react';
 import { StatusBar } from './ui/StatusBar';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { PixelContainer } from './ui/PixelContainer';

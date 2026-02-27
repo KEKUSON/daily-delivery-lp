@@ -1,5 +1,4 @@
-import React from 'react';
-import { Plan } from '../../types';
+import type { Plan } from '../../types';
 
 interface ShopCardProps {
   plan: Plan;

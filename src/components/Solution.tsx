@@ -1,4 +1,3 @@
-import React from 'react';
 import { FEATURES } from '../data/content';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { PixelContainer } from './ui/PixelContainer';

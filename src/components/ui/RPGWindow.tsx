@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface RPGWindowProps {
   children: React.ReactNode;
   title?: string;
