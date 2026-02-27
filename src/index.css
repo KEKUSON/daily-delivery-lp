@@ -5,14 +5,14 @@
   --font-retro: "DotGothic16", sans-serif;
   --font-sans: "Noto Sans JP", sans-serif;
 
-  --color-bg-primary: #0a0a1a;
-  --color-bg-secondary: #1a1a2e;
-  --color-bg-card: #16213e;
-  --color-accent: #e94560;
-  --color-accent-gold: #facc15;
-  --color-accent-cyan: #60a5fa;
-  --color-text: #e0e0e0;
-  --color-text-muted: #888888;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #111111;
+  --color-bg-card: #222222;
+  --color-accent: #E40058;
+  --color-accent-gold: #F8B800;
+  --color-accent-cyan: #00E8D8;
+  --color-text: #FFFFFF;
+  --color-text-muted: #AAAAAA;
 
   --animate-run-in: run-in 1s ease-out forwards;
   --animate-typing: typing 2s steps(40, end) forwards;
@@ -63,11 +63,11 @@
 
   0%,
   100% {
-    box-shadow: 0 0 5px var(--color-accent);
+    box-shadow: 4px 4px 0px var(--color-accent);
   }
 
   50% {
-    box-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent);
+    box-shadow: 8px 8px 0px var(--color-accent);
   }
 }
 
@@ -131,6 +131,7 @@
 
 body {
   @apply bg-bg-primary text-text font-sans m-0 p-0 overflow-x-hidden;
+  line-height: 1.6;
 }
 
 h1,
@@ -141,6 +142,7 @@ h5,
 h6,
 .font-retro {
   @apply font-retro;
+  letter-spacing: 0.05em;
 }
 
 /* AI生成したアセット等のドット絵をくっきり表示するためのユーティリティ */

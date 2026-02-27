@@ -14,11 +14,11 @@ export const Sample: FC = () => {
         </h2>
 
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <RPGWindow title="🎁 ITEM GET!" className="p-4 md:p-8">
+          <RPGWindow title="[!] ITEM GET!" className="p-4 md:p-8">
             <div className="space-y-8">
               {SAMPLE_ARTICLES.map((article) => (
                 <div key={article.id} className="border-b-2 border-dashed border-gray-600 pb-6 last:border-b-0 last:pb-0">
-                  <h3 className="text-xl text-accent-gold mb-2">📰 {article.title}</h3>
+                  <h3 className="text-xl text-accent-gold mb-2"><span aria-hidden="true">▶</span> {article.title}</h3>
                   <div className="text-sm text-accent-cyan mb-2 break-all">
                     URL: <a href={article.url} className="underline hover:text-white" target="_blank" rel="noopener noreferrer">{article.url}</a>
                   </div>

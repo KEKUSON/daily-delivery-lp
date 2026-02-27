@@ -3,17 +3,18 @@ import type { FC, MouseEvent } from 'react';
 import { PixelButton } from './ui/PixelButton';
 import heroMain from '../assets/infographics/hero_main.png';
 
+const FULL_TEXT = "毎日のネタ探し、まだ自分でやってんの？";
+
 export const Hero: FC = () => {
   const [text, setText] = useState('');
   const [isMobile, setIsMobile] = useState(false);
-  const fullText = "毎日のネタ探し、まだ自分でやってんの？";
 
   useEffect(() => {
     let index = 0;
     const timer = setInterval(() => {
-      setText(fullText.substring(0, index));
+      setText(FULL_TEXT.substring(0, index));
       index++;
-      if (index > fullText.length) {
+      if (index > FULL_TEXT.length) {
         clearInterval(timer);
       }
     }, 100);
@@ -21,6 +22,7 @@ export const Hero: FC = () => {
   }, []);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     // Check if device is mobile (touch device)
     const mediaQuery = window.matchMedia('(pointer: coarse)');
     setIsMobile(mediaQuery.matches);
@@ -31,7 +33,7 @@ export const Hero: FC = () => {
   }, []);
 
   const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
-    if (isMobile) return;
+    if (isMobile || typeof window === 'undefined') return;
 
     // Normalize mouse position between -1 and 1
     const x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -42,6 +44,7 @@ export const Hero: FC = () => {
   };
 
   const scrollToNext = () => {
+    if (typeof window === 'undefined') return;
     const nextSection = document.getElementById('pain-section');
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
@@ -94,7 +97,7 @@ export const Hero: FC = () => {
       >
         {/* Delivery Character Animation (CSS Sprite) */}
         <div className="h-32 w-32 mb-8 animate-[run-in_1.5s_ease-out_forwards] flex items-center justify-center">
-          <div className="sprite-walk pixelated filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
+          <div className="sprite-walk pixelated"></div>
         </div>
 
         {/* Main Visual Concept */}
@@ -102,14 +105,14 @@ export const Hero: FC = () => {
           <img
             src={heroMain}
             alt="デイリーデリバリー メインビジュアル"
-            className="w-full h-auto rounded-xl border-4 border-accent shadow-[0_0_20px_rgba(233,69,96,0.5)] pixelated"
+            className="w-full h-auto rounded-xl border-4 border-accent shadow-[8px_8px_0px_0px_var(--color-accent)] pixelated"
           />
         </div>
 
         {/* Typing Text */}
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-retro mb-6 text-white h-20 md:h-24 flex items-center">
           {text}
-          <span className="animate-pulse ml-1">_</span>
+          <span className="animate-pulse ml-1" aria-hidden="true">_</span>
         </h1>
 
         <p className="text-lg md:text-xl text-text-muted font-sans mb-10 max-w-2xl mx-auto leading-relaxed">
@@ -122,7 +125,7 @@ export const Hero: FC = () => {
           pulse={true}
           className="text-xl px-8 py-4"
         >
-          ▶ はじめる
+          <span aria-hidden="true">▶</span> はじめる
         </PixelButton>
       </div>
     </section>

@@ -5,6 +5,7 @@ export interface Plan {
   description: string;
   features: string[];
   recommended?: boolean;
+  level?: number;
 }
 
 export interface Feature {

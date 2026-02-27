@@ -9,19 +9,19 @@ export const PAIN_POINTS: PainPoint[] = [
 export const FEATURES: Feature[] = [
   {
     id: 'feat-1',
-    icon: '🔍',
+    icon: '◆',
     title: '12以上のニュースソースを毎日自動巡回',
     description: '国内外の主要メディアからSNSまで、幅広い情報源を常に監視。'
   },
   {
     id: 'feat-2',
-    icon: '📰',
+    icon: '▶',
     title: 'スキャンダル特化のAIスコアリングで厳選',
     description: 'Shortsで伸びやすい「炎上・スキャンダル」要素をAIが自動判定。'
   },
   {
     id: 'feat-3',
-    icon: '✍️',
+    icon: '◇',
     title: 'Shorts最適化タイトル案を最大3案添付',
     description: 'そのまま使えるキャッチーなタイトル案を複数ご提案。'
   }
@@ -34,6 +34,7 @@ export const PLANS: Plan[] = [
     price: 200,
     description: 'まずはお試しに！',
     features: ['1日2記事', 'タイトル各3案'],
+    level: 1,
   },
   {
     id: 'take',
@@ -42,6 +43,7 @@ export const PLANS: Plan[] = [
     description: 'ネタ選び放題！',
     features: ['1日4記事', 'タイトル各3案'],
     recommended: true,
+    level: 2,
   },
   {
     id: 'matsu',
@@ -49,6 +51,7 @@ export const PLANS: Plan[] = [
     price: 500,
     description: '全弾装填！',
     features: ['1日6記事以上', 'タイトル各3案'],
+    level: 3,
   }
 ];
 
