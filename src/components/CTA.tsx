@@ -14,15 +14,13 @@ export const CTA: React.FC = () => {
     return (
       <div 
         key={i}
-        className="absolute bg-accent-gold/40 rounded-full animate-[fade-in-up_infinite]"
+        className="absolute bg-accent-gold/40 rounded-full"
         style={{
           width: `${size}px`,
           height: `${size}px`,
           bottom: '-10%',
           left: `${Math.random() * 100}%`,
-          animationDuration: `${duration}s`,
-          animationDelay: `${delay}s`,
-          animationTimingFunction: 'linear',
+          animation: `rise ${duration}s linear ${delay}s infinite`,
         }}
       />
     );

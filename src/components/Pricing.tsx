@@ -22,11 +22,12 @@ export const Pricing: React.FC = () => {
           {PLANS.map((plan, index) => (
             <div 
               key={plan.id}
-              className={`transition-all duration-700 delay-[${index * 200}ms] ${
+              className={`transition-all duration-700 ${
                 isVisible 
                   ? 'opacity-100 translate-y-0' 
                   : 'opacity-0 translate-y-20'
               }`}
+              style={{ transitionDelay: `${index * 200}ms` }}
             >
               <ShopCard plan={plan} />
             </div>

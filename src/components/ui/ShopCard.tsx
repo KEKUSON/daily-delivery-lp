@@ -9,7 +9,7 @@ export const ShopCard: React.FC<ShopCardProps> = ({ plan }) => {
   const isRecommended = plan.recommended;
 
   return (
-    <div className={`relative bg-bg-card border-4 ${isRecommended ? 'border-accent-gold transform scale-105 z-10' : 'border-white'} p-6 font-retro transition-all hover:scale-105 hover:shadow-[0_0_15px_rgba(250,204,21,0.5)]`}>
+    <div className={`relative bg-bg-card border-4 ${isRecommended ? 'border-accent-gold transform scale-105 z-10' : 'border-white'} p-6 font-retro transition-all ${isRecommended ? 'hover:scale-110' : 'hover:scale-105'} hover:shadow-[0_0_15px_rgba(250,204,21,0.5)]`}>
       {/* Pixelated corners */}
       <div className="absolute -top-1 -left-1 w-2 h-2 bg-bg-primary"></div>
       <div className="absolute -top-1 -right-1 w-2 h-2 bg-bg-primary"></div>
