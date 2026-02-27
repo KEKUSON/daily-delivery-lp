@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-retro: "DotGothic16", sans-serif;
+  --font-sans: "Noto Sans JP", sans-serif;
+
+  --color-bg-primary: #0a0a1a;
+  --color-bg-secondary: #1a1a2e;
+  --color-bg-card: #16213e;
+  --color-accent: #e94560;
+  --color-accent-gold: #facc15;
+  --color-accent-cyan: #60a5fa;
+  --color-text: #e0e0e0;
+  --color-text-muted: #888888;
+
+  --animate-run-in: run-in 1s ease-out forwards;
+  --animate-typing: typing 2s steps(40, end) forwards;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 2s infinite;
+  --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
+  --animate-twinkle: twinkle 3s ease-in-out infinite;
+
+  @keyframes run-in {
+    0% { transform: translateX(-100vw); }
+    80% { transform: translateX(10px); }
+    100% { transform: translateX(0); }
+  }
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 5px var(--color-accent); }
+    50% { box-shadow: 0 0 20px var(--color-accent), 0 0 40px var(--color-accent); }
+  }
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+}
+
+body {
+  @apply bg-bg-primary text-text font-sans m-0 p-0 overflow-x-hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .font-retro {
+  @apply font-retro;
+}
+
+/* AI生成したアセット等のドット絵をくっきり表示するためのユーティリティ */
+.pixelated {
+  image-rendering: pixelated;
+}
