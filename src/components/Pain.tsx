@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { RPGWindow } from './ui/RPGWindow';
 import { PAIN_POINTS } from '../data/content';
 import { useScrollReveal } from '../hooks/useScrollReveal';
+import npcFace from '../assets/sprites/npc_face.png';
 
 export const Pain: FC = () => {
   const { ref, isVisible } = useScrollReveal(0.2);
@@ -12,20 +13,25 @@ export const Pain: FC = () => {
         <h2 className="text-3xl md:text-4xl text-center mb-12 text-accent-cyan animate-pulse">
           ▼ こんな悩み、ありませんか？
         </h2>
-        
+
         <div className="space-y-6">
           {PAIN_POINTS.map((pain, index) => (
-            <div 
+            <div
               key={pain.id}
-              className={`transition-all duration-1000 transform ${
-                isVisible 
-                  ? 'opacity-100 translate-y-0' 
+              className={`transition-all duration-1000 transform ${isVisible
+                  ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-10'
-              }`}
+                }`}
               style={{ transitionDelay: `${index * 300}ms` }}
             >
               <RPGWindow className="flex items-start gap-4">
-                <div className="text-4xl shrink-0">🧑</div>
+                <div className="w-16 h-16 shrink-0 border-2 border-white rounded bg-black/50 overflow-hidden">
+                  <img
+                    src={npcFace}
+                    alt="悩む村人"
+                    className="w-full h-full object-cover pixelated"
+                  />
+                </div>
                 <div className="text-lg md:text-xl py-2">
                   「{pain.text}」
                 </div>

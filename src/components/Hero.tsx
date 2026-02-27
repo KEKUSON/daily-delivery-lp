@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { PixelButton } from './ui/PixelButton';
+import heroSprite from '../assets/sprites/hero_sprite.png';
+import heroMain from '../assets/infographics/hero_main.png';
 
 export const Hero: FC = () => {
   const [text, setText] = useState('');
   const fullText = "毎日のネタ探し、まだ自分でやってんの？";
-  
+
   useEffect(() => {
     let index = 0;
     const timer = setInterval(() => {
@@ -30,7 +32,7 @@ export const Hero: FC = () => {
     return Array.from({ length: 50 }).map((_, i) => {
       const size = Math.random() * 3 + 1;
       return (
-        <div 
+        <div
           key={i}
           className="absolute bg-white rounded-full animate-[twinkle_3s_ease-in-out_infinite]"
           style={{
@@ -56,10 +58,20 @@ export const Hero: FC = () => {
       <div className="relative z-10 text-center px-4 flex flex-col items-center">
         {/* Delivery Character Animation */}
         <div className="h-32 w-32 mb-8 animate-[run-in_1.5s_ease-out_forwards] flex items-center justify-center">
-          {/* TODO: ぴぽや倉庫のドット絵キャラ画像に差し替える */}
-          <div className="text-6xl filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
-            🏃💨
-          </div>
+          <img
+            src={heroSprite}
+            alt="配達員キャラクター"
+            className="w-full h-full object-contain pixelated filter drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]"
+          />
+        </div>
+
+        {/* Main Visual Concept */}
+        <div className="mb-10 max-w-[300px] md:max-w-[400px] w-full mx-auto animate-float">
+          <img
+            src={heroMain}
+            alt="デイリーデリバリー メインビジュアル"
+            className="w-full h-auto rounded-xl border-4 border-accent shadow-[0_0_20px_rgba(233,69,96,0.5)] pixelated"
+          />
         </div>
 
         {/* Typing Text */}
@@ -73,8 +85,8 @@ export const Hero: FC = () => {
           ショート動画のネタ、もう困らない。
         </p>
 
-        <PixelButton 
-          onClick={scrollToNext} 
+        <PixelButton
+          onClick={scrollToNext}
           pulse={true}
           className="text-xl px-8 py-4"
         >

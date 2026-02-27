@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { FEATURES } from '../data/content';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { PixelContainer } from './ui/PixelContainer';
+import solutionInfo from '../assets/infographics/solution_info.png';
 
 export const Solution: FC = () => {
   const { ref, isVisible } = useScrollReveal(0.2);
@@ -16,20 +17,27 @@ export const Solution: FC = () => {
           <h2 className="text-4xl md:text-5xl text-accent-gold mb-4 drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]">
             📰 デイリーデリバリー が現れた！
           </h2>
-          <p className="text-xl text-text-muted">
+          <p className="text-xl text-text-muted mb-10">
             あなたの代わりに、AIと専属スタッフが毎日ネタを厳選します。
           </p>
+
+          <div className="max-w-3xl mx-auto mb-16">
+            <img
+              src={solutionInfo}
+              alt="サービス解決の流れ"
+              className="w-full h-auto rounded-xl border-2 border-accent-cyan shadow-[0_0_15px_rgba(96,165,250,0.5)] pixelated"
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {FEATURES.map((feature, index) => (
-            <div 
+            <div
               key={feature.id}
-              className={`transition-transform duration-300 ${
-                isVisible 
-                  ? 'opacity-100 translate-y-0' 
+              className={`transition-transform duration-300 ${isVisible
+                  ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-20'
-              }`}
+                }`}
               style={{ transitionDelay: `${400 + index * 200}ms` }}
             >
               <PixelContainer className="bg-bg-card border-2 border-white p-6 group hover:-translate-y-2 transition-transform h-full">
