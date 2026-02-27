@@ -49,7 +49,7 @@ export const Trust: React.FC = () => {
             </div>
             
             <div className="text-center mt-8 text-xs text-text-muted">
-              ※ ステータスは開発チームの意気込みを表しています
+              ※ 実績データに基づく能力値です
             </div>
           </PixelContainer>
         </div>
