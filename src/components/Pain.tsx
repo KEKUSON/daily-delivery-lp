@@ -1,8 +1,9 @@
+import type { FC } from 'react';
 import { RPGWindow } from './ui/RPGWindow';
 import { PAIN_POINTS } from '../data/content';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
-export const Pain: React.FC = () => {
+export const Pain: FC = () => {
   const { ref, isVisible } = useScrollReveal(0.2);
 
   return (

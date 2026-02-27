@@ -1,8 +1,9 @@
+import type { FC } from 'react';
 import { PLANS, PRICING_DESCRIPTION } from '../data/content';
 import { ShopCard } from './ui/ShopCard';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
-export const Pricing: React.FC = () => {
+export const Pricing: FC = () => {
   const { ref, isVisible } = useScrollReveal(0.2);
 
   return (

@@ -1,8 +1,9 @@
+import type { FC } from 'react';
 import { RPGWindow } from './ui/RPGWindow';
 import { SAMPLE_ARTICLES } from '../data/content';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
-export const Sample: React.FC = () => {
+export const Sample: FC = () => {
   const { ref, isVisible } = useScrollReveal(0.2);
 
   return (

@@ -1,16 +1,14 @@
+import type { FC, ReactNode } from 'react';
+
 interface PixelContainerProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 
-export const PixelContainer: React.FC<PixelContainerProps> = ({ children, className = '' }) => {
+export const PixelContainer: FC<PixelContainerProps> = ({ children, className = '' }) => {
   return (
-    <div className={`relative ${className}`}>
-      {/* Pixelated corners */}
-      <div className="absolute -top-1 -left-1 w-2 h-2 bg-bg-primary"></div>
-      <div className="absolute -top-1 -right-1 w-2 h-2 bg-bg-primary"></div>
-      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-bg-primary"></div>
-      <div className="absolute -bottom-1 -right-1 w-2 h-2 bg-bg-primary"></div>
+    <div className={`relative [clip-path:polygon(4px_0,calc(100%-4px)_0,100%_4px,100%_calc(100%-4px),calc(100%-4px)_100%,4px_100%,0_calc(100%-4px),0_4px)] ${className}`}>
+
       
       {children}
     </div>

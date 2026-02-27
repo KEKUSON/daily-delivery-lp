@@ -1,10 +1,12 @@
-type PixelButtonProps<E extends React.ElementType> = {
+import type { ElementType, ComponentPropsWithoutRef } from 'react';
+
+type PixelButtonProps<E extends ElementType> = {
   as?: E;
   variant?: 'primary' | 'secondary';
   pulse?: boolean;
-} & React.ComponentPropsWithoutRef<E>;
+} & ComponentPropsWithoutRef<E>;
 
-export const PixelButton = <E extends React.ElementType = 'button'>({
+export const PixelButton = <E extends ElementType = 'button'>({
   as,
   children,
   variant = 'primary',

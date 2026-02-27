@@ -1,8 +1,9 @@
+import type { FC } from 'react';
 import { FEATURES } from '../data/content';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { PixelContainer } from './ui/PixelContainer';
 
-export const Solution: React.FC = () => {
+export const Solution: FC = () => {
   const { ref, isVisible } = useScrollReveal(0.2);
 
   return (

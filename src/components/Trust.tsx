@@ -1,8 +1,9 @@
+import type { FC } from 'react';
 import { StatusBar } from './ui/StatusBar';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 import { PixelContainer } from './ui/PixelContainer';
 
-export const Trust: React.FC = () => {
+export const Trust: FC = () => {
   const { ref, isVisible } = useScrollReveal(0.2);
 
   return (

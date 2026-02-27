@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
+import type { FC } from 'react';
 import { PixelButton } from './ui/PixelButton';
 
-export const Hero: React.FC = () => {
+export const Hero: FC = () => {
   const [text, setText] = useState('');
   const fullText = "毎日のネタ探し、まだ自分でやってんの？";
   
@@ -25,7 +26,7 @@ export const Hero: React.FC = () => {
   };
 
   // Generate random stars
-  const stars = useMemo(() => {
+  const [stars] = useState(() => {
     return Array.from({ length: 50 }).map((_, i) => {
       const size = Math.random() * 3 + 1;
       return (
@@ -43,7 +44,7 @@ export const Hero: React.FC = () => {
         />
       );
     });
-  }, []);
+  });
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg-primary">

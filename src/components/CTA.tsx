@@ -1,13 +1,14 @@
-import React, { useMemo } from 'react';
+import { useState } from 'react';
+import type { FC } from 'react';
 import { PixelButton } from './ui/PixelButton';
 import { LINKS } from '../data/content';
 import { useScrollReveal } from '../hooks/useScrollReveal';
 
-export const CTA: React.FC = () => {
+export const CTA: FC = () => {
   const { ref, isVisible } = useScrollReveal(0.2);
 
   // Generate light particles moving up
-  const particles = useMemo(() => Array.from({ length: 30 }).map((_, i) => {
+  const [particles] = useState(() => Array.from({ length: 30 }).map((_, i) => {
     const size = Math.random() * 4 + 2;
     const duration = Math.random() * 3 + 2;
     const delay = Math.random() * 2;
@@ -24,7 +25,7 @@ export const CTA: React.FC = () => {
         }}
       />
     );
-  }), []);
+  }));
 
   return (
     <section className="py-32 px-4 bg-bg-primary relative overflow-hidden flex flex-col items-center justify-center min-h-[70vh]">
