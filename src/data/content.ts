@@ -8,16 +8,19 @@ export const PAIN_POINTS: PainPoint[] = [
 
 export const FEATURES: Feature[] = [
   {
+    id: 'feat-1',
     icon: '🔍',
     title: '12以上のニュースソースを毎日自動巡回',
     description: '国内外の主要メディアからSNSまで、幅広い情報源を常に監視。'
   },
   {
+    id: 'feat-2',
     icon: '📰',
     title: 'スキャンダル特化のAIスコアリングで厳選',
     description: 'Shortsで伸びやすい「炎上・スキャンダル」要素をAIが自動判定。'
   },
   {
+    id: 'feat-3',
     icon: '✍️',
     title: 'Shorts最適化タイトル案を最大3案添付',
     description: 'そのまま使えるキャッチーなタイトル案を複数ご提案。'
@@ -56,6 +59,7 @@ export const LINKS = {
 
 export const SAMPLE_ARTICLES: SampleArticle[] = [
   {
+    id: 'sample-1',
     title: '記事①：大物俳優の豪邸売却',
     url: 'https://example.com/news/12345',
     summary: '石田純一が3億円と言われる豪邸を手放したことが発覚。背景には〇〇の事情が...',
@@ -66,6 +70,7 @@ export const SAMPLE_ARTICLES: SampleArticle[] = [
     ]
   },
   {
+    id: 'sample-2',
     title: '記事②：人気アイドルの熱愛発覚',
     url: 'https://example.com/news/67890',
     summary: '超人気アイドルグループのメンバーAと、若手俳優Bのお泊まり愛が週刊誌にスクープされた。',

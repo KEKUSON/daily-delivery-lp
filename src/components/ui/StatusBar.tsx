@@ -6,23 +6,32 @@ interface StatusBarProps {
   maxLevel?: number;
   value: number;
   maxValue?: number;
-  color?: string;
+  variant?: 'primary' | 'blue' | 'green' | 'purple';
 }
+
+const colorMap: Record<string, string> = {
+  primary: 'bg-accent',
+  blue: 'bg-blue-500',
+  green: 'bg-green-500',
+  purple: 'bg-purple-500',
+};
 
 export const StatusBar: React.FC<StatusBarProps> = ({ 
   label, 
   level, 
   value, 
   maxValue = 10,
-  color = 'bg-accent'
+  variant = 'primary'
 }) => {
+  const activeColor = colorMap[variant] || colorMap.primary;
+
   // Generate blocks for the bar
   const blocks = [];
   for (let i = 0; i < maxValue; i++) {
     blocks.push(
       <div 
         key={i} 
-        className={`h-4 w-4 border border-bg-primary ${i < value ? color : 'bg-gray-700'}`}
+        className={`h-4 w-4 border border-bg-primary ${i < value ? activeColor : 'bg-gray-700'}`}
       ></div>
     );
   }

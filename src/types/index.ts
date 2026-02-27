@@ -8,6 +8,7 @@ export interface Plan {
 }
 
 export interface Feature {
+  id: string;
   icon: string;
   title: string;
   description: string;
@@ -19,6 +20,7 @@ export interface PainPoint {
 }
 
 export interface SampleArticle {
+  id: string;
   title: string;
   url: string;
   summary: string;
