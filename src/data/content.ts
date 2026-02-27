@@ -57,6 +57,8 @@ export const LINKS = {
   xDm: 'https://x.com/keku723306'
 };
 
+export const PRICING_DESCRIPTION = "コーヒー1杯より安い、あなただけの武器屋。";
+
 export const SAMPLE_ARTICLES: SampleArticle[] = [
   {
     id: 'sample-1',
