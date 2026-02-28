@@ -20,6 +20,9 @@
   --animate-pulse-glow: pulse-glow 2s infinite;
   --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
   --animate-border-pulse: border-pulse 2s steps(2, end) infinite;
+  --animate-border-beam: border-beam calc(var(--duration)*1s) infinite steps(60);
+  --animate-marquee: marquee var(--duration, 40s) steps(200) infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration, 40s) steps(200) infinite;
 }
 
 @keyframes run-in {

@@ -4,6 +4,8 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { FEATURES } from '../data/content';
 import { PixelContainer } from './ui/PixelContainer';
+import { AnimatedGridPattern } from './ui/AnimatedGridPattern';
+import { cn } from '../lib/utils';
 
 export const Solution: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -83,6 +85,17 @@ export const Solution: FC = () => {
     <section className="py-20 px-4 bg-bg-primary min-h-screen flex flex-col items-center justify-center relative overflow-hidden" ref={containerRef}>
       {/* Gradient Transition from Pain */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-secondary to-transparent z-20 pointer-events-none" />
+
+      <AnimatedGridPattern
+        numSquares={30}
+        maxOpacity={0.15}
+        duration={4}
+        repeatDelay={1}
+        className={cn(
+          "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]",
+          "absolute inset-0 z-0 fill-accent-gold/20 stroke-accent-gold/10"
+        )}
+      />
 
       <div className="max-w-5xl w-full z-10">
         <div className="text-center mb-16" ref={titleRef}>

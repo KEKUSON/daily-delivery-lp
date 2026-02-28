@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { RPGWindow } from './ui/RPGWindow';
 import { SAMPLE_ARTICLES } from '../data/content';
+import { Marquee } from './ui/Marquee';
 
 export const Sample: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -80,9 +81,9 @@ export const Sample: FC = () => {
         </h2>
 
         <div>
-          <div className="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory scrollbar-hide">
+          <Marquee pauseOnHover className="[--duration:30s] [--gap:1.5rem] md:[--duration:50s]">
             {SAMPLE_ARTICLES.map((article) => (
-              <div key={article.id} className="sample-card min-w-[320px] md:min-w-[400px] shrink-0 snap-center">
+              <div key={article.id} className="sample-card min-w-[320px] md:min-w-[400px] shrink-0">
                 <RPGWindow title="[!] ITEM GET!" className="p-4 md:p-8 h-full">
                   <div className="space-y-6">
                     <h3 className="text-xl text-accent-gold mb-2"><span aria-hidden="true">▶</span> {article.title}</h3>
@@ -92,7 +93,7 @@ export const Sample: FC = () => {
                     <div className="bg-black/30 p-3 rounded mb-4 text-sm text-gray-300">
                       概要: {article.summary}
                     </div>
-                    
+
                     <div>
                       <h4 className="text-md text-white mb-2">台本タイトル案:</h4>
                       <ul className="space-y-1 pl-4">
@@ -107,7 +108,7 @@ export const Sample: FC = () => {
                 </RPGWindow>
               </div>
             ))}
-          </div>
+          </Marquee>
         </div>
       </div>
     </section>
