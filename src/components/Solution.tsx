@@ -3,7 +3,9 @@ import type { FC } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { FEATURES } from '../data/content';
-import { PixelContainer } from './ui/PixelContainer';
+
+import { PrepPointBox } from './ui/PrepPointBox';
+import { CheckList } from './ui/CheckList';
 import { AnimatedGridPattern } from './ui/AnimatedGridPattern';
 import { cn } from '../lib/utils';
 
@@ -107,25 +109,33 @@ export const Solution: FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8" ref={gridRef}>
-          {FEATURES.map((feature) => (
-            <div
-              key={feature.id}
-              className="feature-card"
-            >
-              <PixelContainer className="bg-bg-card border-2 border-white p-6 group hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_#00E8D8] transition-transform duration-200 [transition-timing-function:steps(3,end)] h-full">
-                <div className="text-5xl mb-4 group-hover:scale-110 group-hover:drop-shadow-[4px_4px_0px_#FFFFFF] transition-all" aria-hidden="true">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl text-accent-cyan mb-3 font-bold">
-                  {feature.title}
-                </h3>
-                <p className="text-text-muted text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </PixelContainer>
-            </div>
-          ))}
+        <div className="flex justify-center mb-8" ref={gridRef}>
+          <div className="w-full">
+            {FEATURES.map((feature, index) => (
+              <div
+                key={feature.id}
+                className="feature-card mb-6"
+              >
+                <PrepPointBox
+                  title={`特徴 ${index + 1}`}
+                  icon={feature.icon}
+                  variant={index === 1 ? 'accent' : 'primary'}
+                  className="hover:-translate-y-1 transition-transform duration-200"
+                >
+                  <h3 className="text-xl md:text-2xl text-accent-cyan mb-4 font-bold border-b-2 border-dashed border-gray-600 pb-2 inline-block">
+                    {feature.title}
+                  </h3>
+                  <div className="mt-2">
+                    <CheckList
+                      items={[feature.description]}
+                      icon="▶"
+                      iconColor={index === 1 ? "text-accent-gold" : "text-accent"}
+                    />
+                  </div>
+                </PrepPointBox>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { RPGWindow } from './ui/RPGWindow';
 import { SAMPLE_ARTICLES } from '../data/content';
 import { Marquee } from './ui/Marquee';
+import { CheckList } from './ui/CheckList';
 
 export const Sample: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -95,14 +96,19 @@ export const Sample: FC = () => {
                     </div>
 
                     <div>
-                      <h4 className="text-md text-white mb-2">台本タイトル案:</h4>
-                      <ul className="space-y-1 pl-4">
-                        {article.titleOptions.map((opt, i) => (
-                          <li key={i} className="text-sm text-gray-300">
-                            {String.fromCharCode(65 + i)}: {opt}
-                          </li>
+                      <h4 className="text-md text-white mb-3 bg-black/50 p-2 inline-block rounded">
+                        <span aria-hidden="true" className="text-accent-gold">◆</span> 台本タイトル案:
+                      </h4>
+                      <CheckList
+                        items={article.titleOptions.map((opt, i) => (
+                          <span className="text-sm text-gray-300">
+                            <strong className="text-white">案{String.fromCharCode(65 + i)}:</strong> {opt}
+                          </span>
                         ))}
-                      </ul>
+                        icon="▶"
+                        iconColor="text-accent-cyan text-sm"
+                        className="pl-2"
+                      />
                     </div>
                   </div>
                 </RPGWindow>

@@ -15,6 +15,7 @@ export function AnimatedGridPattern({
     numSquares = 30,
     maxOpacity = 0.15,
     duration = 4,
+    repeatDelay = 1,
     className,
     strokeWidth = 1,
     ...props

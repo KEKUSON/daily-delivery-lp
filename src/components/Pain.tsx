@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import type { FC } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { RPGWindow } from './ui/RPGWindow';
+import { SpeechBalloon } from './ui/SpeechBalloon';
 import { PAIN_POINTS } from '../data/content';
 import npcFace1 from '../assets/sprites/npc_face.png';
 import npcFace2 from '../assets/sprites/npc_face_2.png';
@@ -84,26 +84,30 @@ export const Pain: FC = () => {
           <span aria-hidden="true">┌─ </span>こんな悩み、ありませんか？<span aria-hidden="true"> ─┐</span>
         </h2>
 
-        <div className="space-y-6">
-          {PAIN_POINTS.map((pain, index) => (
-            <div
-              key={pain.id}
-              className="pain-card"
-            >
-              <RPGWindow className="flex items-start gap-4">
-                <div className="w-16 h-16 shrink-0 border-2 border-white rounded bg-black/50 overflow-hidden">
-                  <img
-                    src={npcFaces[index % npcFaces.length]}
-                    alt={`悩む村人 ${index + 1}`}
-                    className="w-full h-full object-cover pixelated"
-                  />
+        <div className="space-y-4 md:space-y-8">
+          {PAIN_POINTS.map((pain, index) => {
+            const isEven = index % 2 === 1;
+            return (
+              <div
+                key={pain.id}
+                className="pain-card w-full flex"
+                style={{ justifyContent: isEven ? 'flex-end' : 'flex-start' }}
+              >
+                <div className="w-full md:w-[85%]">
+                  <SpeechBalloon
+                    avatarSrc={npcFaces[index % npcFaces.length]}
+                    avatarAlt={`悩みを抱える村人 ${String.fromCharCode(65 + index)}`}
+                    direction={isEven ? 'right' : 'left'}
+                    name={`村人 ${String.fromCharCode(65 + index)}`}
+                  >
+                    <div className="text-lg md:text-xl font-retro pt-1">
+                      「{pain.text}」
+                    </div>
+                  </SpeechBalloon>
                 </div>
-                <div className="text-lg md:text-xl py-2">
-                  「{pain.text}」
-                </div>
-              </RPGWindow>
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

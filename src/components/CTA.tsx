@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import * as PIXI from 'pixi.js';
 import { PixelButton } from './ui/PixelButton';
 import { PixiCanvas } from './ui/PixiCanvas';
+import { PrepPointBox } from './ui/PrepPointBox';
+import { CheckList } from './ui/CheckList';
 import { LINKS } from '../data/content';
 
 export const CTA: FC = () => {
@@ -87,21 +89,21 @@ export const CTA: FC = () => {
 
     for (let i = 0; i < numParticles; i++) {
       const sprite = new PIXI.Sprite(particleTexture);
-      
+
       sprite.x = Math.random() * app.screen.width;
       sprite.y = Math.random() * app.screen.height;
-      
+
       const size = Math.floor(Math.random() * 3) + 2; // 2 to 4 pixels
       sprite.width = size;
       sprite.height = size;
-      
+
       sprite.tint = 0xF8B800; // accent-gold
-      
+
       const targetAlpha = 0.3 + Math.random() * 0.3;
       sprite.alpha = targetAlpha;
-      
+
       particlesContainer.addChild(sprite);
-      
+
       particles.push({
         sprite,
         speed: 0.5 + Math.random() * 1.5,
@@ -113,37 +115,37 @@ export const CTA: FC = () => {
     app.ticker.add((ticker) => {
       const time = performance.now() / 1000;
       const height = app.screen.height;
-      
+
       particles.forEach(p => {
         // Rise
         p.sprite.y -= p.speed * ticker.deltaTime;
-        
+
         // Sway
         p.sprite.x += Math.sin(time + p.phase) * 0.3;
-        
+
         // Wrap around
         if (p.sprite.y < -10) {
-            p.sprite.y = height + 10;
-            p.sprite.x = Math.random() * app.screen.width;
+          p.sprite.y = height + 10;
+          p.sprite.x = Math.random() * app.screen.width;
         }
 
         // Fade in/out at edges
         if (p.sprite.y > height * 0.8) {
-            // Fade in bottom 20%
-            const progress = (height - p.sprite.y) / (height * 0.2);
-            p.sprite.alpha = p.targetAlpha * progress;
+          // Fade in bottom 20%
+          const progress = (height - p.sprite.y) / (height * 0.2);
+          p.sprite.alpha = p.targetAlpha * progress;
         } else if (p.sprite.y < height * 0.2) {
-            // Fade out top 20%
-            const progress = p.sprite.y / (height * 0.2);
-            p.sprite.alpha = p.targetAlpha * Math.max(0, progress);
+          // Fade out top 20%
+          const progress = p.sprite.y / (height * 0.2);
+          p.sprite.alpha = p.targetAlpha * Math.max(0, progress);
         } else {
-            p.sprite.alpha = p.targetAlpha;
+          p.sprite.alpha = p.targetAlpha;
         }
       });
     });
 
     return () => {
-        // Don't destroy PIXI.Texture.WHITE — it's a shared singleton
+      // Don't destroy PIXI.Texture.WHITE — it's a shared singleton
     };
   }, []);
 
@@ -155,29 +157,51 @@ export const CTA: FC = () => {
       <PixiCanvas onInit={initPixi} />
 
       <div className="max-w-3xl w-full text-center relative z-10">
-        <div>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl text-white mb-12 drop-shadow-[4px_4px_0px_#E40058] will-change-[transform,opacity]" ref={titleRef}>
+        <div className="flex flex-col items-center">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl text-white mb-8 drop-shadow-[4px_4px_0px_#E40058] will-change-[transform,opacity]" ref={titleRef}>
             冒険に出よう！
           </h2>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6" ref={buttonsRef}>
-            <PixelButton 
-              as="a" 
-              href={LINKS.form} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              pulse={true} 
+          <div className="w-full max-w-xl mb-12 text-left">
+            <PrepPointBox
+              title="最後に"
+              icon="!"
+              variant="primary"
+              className="mt-0 mb-0 shadow-[8px_8px_0px_0px_#E40058]"
+            >
+              <div className="text-lg md:text-xl font-bold mb-4 text-center">
+                コーヒー1杯より安い、あなただけの武器屋。
+              </div>
+              <CheckList
+                items={[
+                  "毎日AIが選んだスキャンダル記事が届く",
+                  "YouTube Shorts特化のタイトル案付き",
+                  "月額たったの数千円で時間が買える！"
+                ]}
+                icon="✔"
+                iconColor="text-accent-gold"
+              />
+            </PrepPointBox>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full" ref={buttonsRef}>
+            <PixelButton
+              as="a"
+              href={LINKS.form}
+              target="_blank"
+              rel="noopener noreferrer"
+              pulse={true}
               className="w-full sm:w-auto text-xl py-4 px-8"
             >
               <span aria-hidden="true">▶</span> 無料お試しに申し込む
             </PixelButton>
-            
-            <PixelButton 
-              as="a" 
-              href={LINKS.xDm} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              variant="secondary" 
+
+            <PixelButton
+              as="a"
+              href={LINKS.xDm}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="secondary"
               className="w-full sm:w-auto text-xl py-4 px-8"
             >
               <span aria-hidden="true">✉</span> まずは気軽に聞く
