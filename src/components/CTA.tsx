@@ -1,22 +1,89 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import type { FC } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import { PixelButton } from './ui/PixelButton';
 import { LINKS } from '../data/content';
-import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export const CTA: FC = () => {
-  const { ref, isVisible } = useScrollReveal(0.2);
+  const sectionRef = useRef<HTMLElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      // Title scrub animation
+      gsap.from(titleRef.current, {
+        scale: 0.3,
+        opacity: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "top 30%",
+          scrub: 1.5
+        }
+      });
+
+      // Buttons entry animation
+      gsap.from(buttonsRef.current, {
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        ease: "steps(4)",
+        scrollTrigger: {
+          trigger: buttonsRef.current,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+
+    mm.add("(max-width: 767px)", () => {
+      // Simplified title animation for mobile
+      gsap.from(titleRef.current, {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.6,
+        ease: "steps(4)",
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        }
+      });
+
+      gsap.from(buttonsRef.current, {
+        y: 20,
+        opacity: 0,
+        duration: 0.5,
+        ease: "steps(4)",
+        scrollTrigger: {
+          trigger: buttonsRef.current,
+          start: "top 85%",
+          toggleActions: "play none none none"
+        }
+      });
+    });
+
+    return () => mm.revert();
+  }, { scope: sectionRef });
 
   // Generate light particles data moving up
-  const particlesData = useMemo(() => Array.from({ length: 30 }).map(() => ({
-    size: Math.random() * 4 + 2,
-    duration: Math.random() * 3 + 2,
-    delay: Math.random() * 2,
-    left: Math.random() * 100,
-  })), []);
+  const particlesData = useMemo(() => {
+    if (typeof window === 'undefined') return [];
+    return Array.from({ length: 30 }).map(() => ({
+      size: Math.random() * 4 + 2,
+      duration: Math.random() * 3 + 2,
+      delay: Math.random() * 2,
+      left: Math.random() * 100,
+    }));
+  }, []);
 
   return (
-    <section className="relative py-32 px-4 bg-bg-primary overflow-hidden flex flex-col items-center justify-center min-h-[70vh]">
+    <section className="relative py-32 px-4 bg-bg-primary overflow-hidden flex flex-col items-center justify-center min-h-[70vh]" ref={sectionRef}>
       {/* Gradient Transition from Pricing */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-secondary to-transparent z-20 pointer-events-none" />
 
@@ -37,13 +104,13 @@ export const CTA: FC = () => {
         ))}
       </div>
 
-      <div className="max-w-3xl w-full text-center relative z-10" ref={ref}>
-        <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
-          <h2 className="text-5xl md:text-6xl lg:text-7xl text-white mb-12 drop-shadow-[4px_4px_0px_#E40058]">
+      <div className="max-w-3xl w-full text-center relative z-10">
+        <div>
+          <h2 className="text-5xl md:text-6xl lg:text-7xl text-white mb-12 drop-shadow-[4px_4px_0px_#E40058] will-change-[transform,opacity]" ref={titleRef}>
             冒険に出よう！
           </h2>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6" ref={buttonsRef}>
             <PixelButton 
               as="a" 
               href={LINKS.form} 

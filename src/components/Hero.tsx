@@ -1,5 +1,7 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import type { FC, MouseEvent } from 'react';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import { PixelButton } from './ui/PixelButton';
 import heroMain from '../assets/infographics/hero_main.png';
 
@@ -8,6 +10,9 @@ const FULL_TEXT = "毎日のネタ探し、まだ自分でやってんの？";
 export const Hero: FC = () => {
   const [text, setText] = useState('');
   const [isMobile, setIsMobile] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const starsRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let index = 0;
@@ -32,6 +37,40 @@ export const Hero: FC = () => {
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      // Parallax for stars
+      gsap.to(starsRef.current, {
+        y: -100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // Parallax for content and scale down
+      gsap.to(contentRef.current, {
+        y: -200,
+        scale: 0.95,
+        opacity: 0.8,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    });
+
+    return () => mm.revert();
+  }, { scope: sectionRef });
+
   const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
     if (isMobile || typeof window === 'undefined') return;
 
@@ -51,8 +90,9 @@ export const Hero: FC = () => {
     }
   };
 
-  // Generate random stars data
+  // Generate random stars data safely
   const starsData = useMemo(() => {
+    if (typeof window === 'undefined') return [];
     return Array.from({ length: 50 }).map(() => ({
       size: Math.random() * 3 + 1,
       top: Math.random() * 100,
@@ -64,37 +104,41 @@ export const Hero: FC = () => {
 
   return (
     <section
+      ref={sectionRef}
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg-primary bg-noise"
       onMouseMove={handleMouseMove}
     >
       {/* Star Background with Parallax */}
-      <div
-        className="absolute inset-0 z-0 transition-transform duration-200 ease-out"
-        style={!isMobile ? { transform: `translate(calc(var(--mouse-x, 0) * -30px), calc(var(--mouse-y, 0) * -30px))` } : {}}
-      >
-        {starsData.map((star, i) => (
-          <div
-            key={i}
-            className="absolute bg-white rounded-full animate-[twinkle_3s_ease-in-out_infinite]"
-            style={{
-              width: `${star.size}px`,
-              height: `${star.size}px`,
-              top: `${star.top}%`,
-              left: `${star.left}%`,
-              animationDelay: `${star.delay}s`,
-              opacity: star.opacity
-            }}
-          />
-        ))}
-        {/* Shooting Stars */}
-        <div className="absolute top-[10%] left-[80%] w-[100px] h-[2px] bg-gradient-to-r from-white to-transparent opacity-0 animate-[shooting-star_5s_ease-in-out_infinite]" />
-        <div className="absolute top-[30%] left-[90%] w-[150px] h-[2px] bg-gradient-to-r from-accent-cyan to-transparent opacity-0 animate-[shooting-star_8s_ease-in-out_infinite_2s]" />
+      <div ref={starsRef} className="absolute inset-0 z-0 will-change-transform">
+        <div
+          className="w-full h-full transition-transform duration-200 ease-out"
+          style={!isMobile ? { transform: `translate(calc(var(--mouse-x, 0) * -30px), calc(var(--mouse-y, 0) * -30px))` } : {}}
+        >
+          {starsData.map((star, i) => (
+            <div
+              key={i}
+              className="absolute bg-white rounded-full animate-[twinkle_3s_ease-in-out_infinite]"
+              style={{
+                width: `${star.size}px`,
+                height: `${star.size}px`,
+                top: `${star.top}%`,
+                left: `${star.left}%`,
+                animationDelay: `${star.delay}s`,
+                opacity: star.opacity
+              }}
+            />
+          ))}
+          {/* Shooting Stars */}
+          <div className="absolute top-[10%] left-[80%] w-[100px] h-[2px] bg-gradient-to-r from-white to-transparent opacity-0 animate-[shooting-star_5s_ease-in-out_infinite]" />
+          <div className="absolute top-[30%] left-[90%] w-[150px] h-[2px] bg-gradient-to-r from-accent-cyan to-transparent opacity-0 animate-[shooting-star_8s_ease-in-out_infinite_2s]" />
+        </div>
       </div>
 
-      <div
-        className="relative z-10 text-center px-4 flex flex-col items-center transition-transform duration-200 ease-out"
-        style={!isMobile ? { transform: `translate(calc(var(--mouse-x, 0) * 15px), calc(var(--mouse-y, 0) * 15px))` } : {}}
-      >
+      <div ref={contentRef} className="relative z-10 w-full flex flex-col items-center will-change-transform">
+        <div
+          className="w-full text-center px-4 flex flex-col items-center transition-transform duration-200 ease-out"
+          style={!isMobile ? { transform: `translate(calc(var(--mouse-x, 0) * 15px), calc(var(--mouse-y, 0) * 15px))` } : {}}
+        >
         {/* Delivery Character Animation (CSS Sprite) */}
         <div className="h-32 w-32 mb-8 animate-[run-in_1.5s_ease-out_forwards] flex items-center justify-center">
           <div className="sprite-walk pixelated"></div>
@@ -127,6 +171,7 @@ export const Hero: FC = () => {
         >
           <span aria-hidden="true">▶</span> はじめる
         </PixelButton>
+        </div>
       </div>
     </section>
   );
