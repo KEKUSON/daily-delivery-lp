@@ -1,8 +1,10 @@
-import { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import type { FC, MouseEvent } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import * as PIXI from 'pixi.js';
 import { PixelButton } from './ui/PixelButton';
+import { PixiCanvas } from './ui/PixiCanvas';
 import heroMain from '../assets/infographics/hero_main.png';
 
 const FULL_TEXT = "毎日のネタ探し、まだ自分でやってんの？";
@@ -11,7 +13,6 @@ export const Hero: FC = () => {
   const [text, setText] = useState('');
   const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const starsRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,8 +29,7 @@ export const Hero: FC = () => {
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    // Check if device is mobile (touch device)
-    const mediaQuery = window.matchMedia('(pointer: coarse)');
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
     setIsMobile(mediaQuery.matches);
 
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
@@ -41,18 +41,6 @@ export const Hero: FC = () => {
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 768px)", () => {
-      // Parallax for stars
-      gsap.to(starsRef.current, {
-        y: -100,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true
-        }
-      });
-
       // Parallax for content and scale down
       gsap.to(contentRef.current, {
         y: -200,
@@ -90,16 +78,146 @@ export const Hero: FC = () => {
     }
   };
 
-  // Generate random stars data safely
-  const starsData = useMemo(() => {
-    if (typeof window === 'undefined') return [];
-    return Array.from({ length: 50 }).map(() => ({
-      size: Math.random() * 3 + 1,
-      top: Math.random() * 100,
-      left: Math.random() * 100,
-      delay: Math.random() * 3,
-      opacity: Math.random() * 0.5 + 0.2
-    }));
+  const initPixi = useCallback((app: PIXI.Application) => {
+    const isMob = window.matchMedia('(max-width: 767px)').matches;
+    const numStars = isMob ? 80 : 200;
+
+    const starsContainer = new PIXI.Container();
+    app.stage.addChild(starsContainer);
+
+    // Use built-in white texture for optimization
+    const starTexture = PIXI.Texture.WHITE;
+
+    const stars: { sprite: PIXI.Sprite, phase: number, speed: number, baseX: number, baseY: number }[] = [];
+
+    for (let i = 0; i < numStars; i++) {
+      const sprite = new PIXI.Sprite(starTexture);
+      
+      // Random position
+      const baseX = Math.random() * app.screen.width;
+      const baseY = Math.random() * app.screen.height;
+      sprite.x = baseX;
+      sprite.y = baseY;
+      
+      // Random size (1 to 3 pixels)
+      const size = Math.floor(Math.random() * 3) + 1;
+      sprite.width = size;
+      sprite.height = size;
+      
+      // Initial alpha
+      sprite.alpha = Math.random();
+      
+      starsContainer.addChild(sprite);
+      
+      stars.push({
+        sprite,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.02 + Math.random() * 0.03,
+        baseX,
+        baseY
+      });
+    }
+
+    // Optional: Shooting stars with object pooling
+    const shootingStarsContainer = new PIXI.Container();
+    app.stage.addChild(shootingStarsContainer);
+    
+    // Pool of shooting stars
+    const poolSize = 5;
+    const shootingStarPool: (PIXI.Graphics & { speed: number, life: number, active: boolean })[] = [];
+    
+    for (let i = 0; i < poolSize; i++) {
+        const ss = new PIXI.Graphics() as PIXI.Graphics & { speed: number, life: number, active: boolean };
+        ss.moveTo(0, 0);
+        ss.lineTo(40, -40); // Diagonal line
+        ss.stroke({ color: 0xffffff, width: 2, alpha: 1 }); // Default color
+        ss.active = false;
+        ss.visible = false;
+        shootingStarsContainer.addChild(ss);
+        shootingStarPool.push(ss);
+    }
+    
+    let shootingStarTimer = 0;
+    const shootingStarThreshold = isMob ? 400 : 200; // Frames between shooting stars
+
+    const activateShootingStar = () => {
+        const inactiveStar = shootingStarPool.find(s => !s.active);
+        if (inactiveStar) {
+            inactiveStar.clear();
+            inactiveStar.moveTo(0, 0);
+            inactiveStar.lineTo(40, -40);
+            inactiveStar.stroke({ color: Math.random() > 0.5 ? 0xffffff : 0x00E8D8, width: 2, alpha: 1 });
+            
+            inactiveStar.x = app.screen.width * 0.5 + Math.random() * app.screen.width * 0.5;
+            inactiveStar.y = Math.random() * app.screen.height * 0.5;
+            inactiveStar.speed = 15 + Math.random() * 10;
+            inactiveStar.life = 60; // Frames to live
+            inactiveStar.active = true;
+            inactiveStar.visible = true;
+        }
+    };
+
+    app.ticker.add((ticker) => {
+      const time = performance.now() / 1000;
+      
+      // Twinkle animation
+      stars.forEach(star => {
+        star.sprite.alpha = 0.3 + Math.sin(time * 3 + star.phase) * 0.35;
+      });
+
+      // Mouse parallax for stars (Desktop only)
+      let baseY = 0;
+      if (!isMob && sectionRef.current) {
+        const style = window.getComputedStyle(sectionRef.current);
+        const mouseX = parseFloat(style.getPropertyValue('--mouse-x')) || 0;
+        const mouseY = parseFloat(style.getPropertyValue('--mouse-y')) || 0;
+
+        starsContainer.x = mouseX * -30;
+        baseY = mouseY * -30;
+      }
+
+      // Scroll parallax for stars
+      const scrollY = window.scrollY;
+      starsContainer.y = baseY - scrollY * 0.1;
+
+      // Reset positions if they go too far (due to scroll parallax)
+      stars.forEach(star => {
+        const actualY = star.baseY + starsContainer.y;
+        if (actualY < -50) {
+            star.baseY += app.screen.height + 100;
+        } else if (actualY > app.screen.height + 50) {
+            star.baseY -= app.screen.height + 100;
+        }
+        star.sprite.y = star.baseY;
+      });
+
+      // Simple shooting star logic
+      shootingStarTimer += ticker.deltaTime;
+      if (shootingStarTimer > shootingStarThreshold) {
+        shootingStarTimer = 0;
+        activateShootingStar();
+      }
+      
+      // Update active shooting stars
+      shootingStarPool.forEach(ss => {
+        if (ss.active) {
+            ss.x -= ss.speed * ticker.deltaTime;
+            ss.y += ss.speed * ticker.deltaTime;
+            ss.life -= ticker.deltaTime;
+            ss.alpha = ss.life / 60; // Fade out
+            
+            if (ss.life <= 0 || ss.x < -100 || ss.y > app.screen.height + 100) {
+                ss.active = false;
+                ss.visible = false;
+            }
+        }
+      });
+    });
+
+    // Cleanup texture on destroy (not needed for PIXI.Texture.WHITE, but good practice if custom)
+    return () => {
+        // starTexture.destroy(true); // Don't destroy built-in white texture
+    };
   }, []);
 
   return (
@@ -108,31 +226,7 @@ export const Hero: FC = () => {
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg-primary bg-noise"
       onMouseMove={handleMouseMove}
     >
-      {/* Star Background with Parallax */}
-      <div ref={starsRef} className="absolute inset-0 z-0 will-change-transform">
-        <div
-          className="w-full h-full transition-transform duration-200 ease-out"
-          style={!isMobile ? { transform: `translate(calc(var(--mouse-x, 0) * -30px), calc(var(--mouse-y, 0) * -30px))` } : {}}
-        >
-          {starsData.map((star, i) => (
-            <div
-              key={i}
-              className="absolute bg-white rounded-full animate-[twinkle_3s_ease-in-out_infinite]"
-              style={{
-                width: `${star.size}px`,
-                height: `${star.size}px`,
-                top: `${star.top}%`,
-                left: `${star.left}%`,
-                animationDelay: `${star.delay}s`,
-                opacity: star.opacity
-              }}
-            />
-          ))}
-          {/* Shooting Stars */}
-          <div className="absolute top-[10%] left-[80%] w-[100px] h-[2px] bg-gradient-to-r from-white to-transparent opacity-0 animate-[shooting-star_5s_ease-in-out_infinite]" />
-          <div className="absolute top-[30%] left-[90%] w-[150px] h-[2px] bg-gradient-to-r from-accent-cyan to-transparent opacity-0 animate-[shooting-star_8s_ease-in-out_infinite_2s]" />
-        </div>
-      </div>
+      <PixiCanvas onInit={initPixi} />
 
       <div ref={contentRef} className="relative z-10 w-full flex flex-col items-center will-change-transform">
         <div

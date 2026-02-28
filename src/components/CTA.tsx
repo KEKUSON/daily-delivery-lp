@@ -1,8 +1,10 @@
-import { useMemo, useRef } from 'react';
+import { useRef, useCallback } from 'react';
 import type { FC } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import * as PIXI from 'pixi.js';
 import { PixelButton } from './ui/PixelButton';
+import { PixiCanvas } from './ui/PixiCanvas';
 import { LINKS } from '../data/content';
 
 export const CTA: FC = () => {
@@ -71,15 +73,78 @@ export const CTA: FC = () => {
     return () => mm.revert();
   }, { scope: sectionRef });
 
-  // Generate light particles data moving up
-  const particlesData = useMemo(() => {
-    if (typeof window === 'undefined') return [];
-    return Array.from({ length: 30 }).map(() => ({
-      size: Math.random() * 4 + 2,
-      duration: Math.random() * 3 + 2,
-      delay: Math.random() * 2,
-      left: Math.random() * 100,
-    }));
+  const initPixi = useCallback((app: PIXI.Application) => {
+    const isMob = window.matchMedia('(max-width: 767px)').matches;
+    const numParticles = isMob ? 30 : 80;
+
+    const particlesContainer = new PIXI.Container();
+    app.stage.addChild(particlesContainer);
+
+    // Use built-in white texture for optimization
+    const particleTexture = PIXI.Texture.WHITE;
+
+    const particles: { sprite: PIXI.Sprite, speed: number, phase: number, targetAlpha: number }[] = [];
+
+    for (let i = 0; i < numParticles; i++) {
+      const sprite = new PIXI.Sprite(particleTexture);
+      
+      sprite.x = Math.random() * app.screen.width;
+      sprite.y = Math.random() * app.screen.height;
+      
+      const size = Math.floor(Math.random() * 3) + 2; // 2 to 4 pixels
+      sprite.width = size;
+      sprite.height = size;
+      
+      sprite.tint = 0xF8B800; // accent-gold
+      
+      const targetAlpha = 0.3 + Math.random() * 0.3;
+      sprite.alpha = targetAlpha;
+      
+      particlesContainer.addChild(sprite);
+      
+      particles.push({
+        sprite,
+        speed: 0.5 + Math.random() * 1.5,
+        phase: Math.random() * Math.PI * 2,
+        targetAlpha
+      });
+    }
+
+    app.ticker.add((ticker) => {
+      const time = performance.now() / 1000;
+      const height = app.screen.height;
+      
+      particles.forEach(p => {
+        // Rise
+        p.sprite.y -= p.speed * ticker.deltaTime;
+        
+        // Sway
+        p.sprite.x += Math.sin(time + p.phase) * 0.3;
+        
+        // Wrap around
+        if (p.sprite.y < -10) {
+            p.sprite.y = height + 10;
+            p.sprite.x = Math.random() * app.screen.width;
+        }
+
+        // Fade in/out at edges
+        if (p.sprite.y > height * 0.8) {
+            // Fade in bottom 20%
+            const progress = (height - p.sprite.y) / (height * 0.2);
+            p.sprite.alpha = p.targetAlpha * progress;
+        } else if (p.sprite.y < height * 0.2) {
+            // Fade out top 20%
+            const progress = p.sprite.y / (height * 0.2);
+            p.sprite.alpha = p.targetAlpha * Math.max(0, progress);
+        } else {
+            p.sprite.alpha = p.targetAlpha;
+        }
+      });
+    });
+
+    return () => {
+        // Don't destroy PIXI.Texture.WHITE — it's a shared singleton
+    };
   }, []);
 
   return (
@@ -87,22 +152,7 @@ export const CTA: FC = () => {
       {/* Gradient Transition from Pricing */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-secondary to-transparent z-20 pointer-events-none" />
 
-      {/* Background Particles */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {particlesData.map((p, i) => (
-          <div 
-            key={i}
-            className="absolute bg-accent-gold/40 rounded-full"
-            style={{
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-              bottom: '-10%',
-              left: `${p.left}%`,
-              animation: `rise ${p.duration}s linear ${p.delay}s infinite`,
-            }}
-          />
-        ))}
-      </div>
+      <PixiCanvas onInit={initPixi} />
 
       <div className="max-w-3xl w-full text-center relative z-10">
         <div>

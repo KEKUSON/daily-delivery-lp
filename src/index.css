@@ -19,8 +19,6 @@
   --animate-float: float 3s ease-in-out infinite;
   --animate-pulse-glow: pulse-glow 2s infinite;
   --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
-  --animate-twinkle: twinkle 3s ease-in-out infinite;
-  --animate-shooting-star: shooting-star 4s linear infinite;
   --animate-border-pulse: border-pulse 2s steps(2, end) infinite;
 }
 
@@ -84,41 +82,6 @@
   }
 }
 
-@keyframes twinkle {
-
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes rise {
-  0% { opacity: 0; transform: translateY(0); }
-  10% { opacity: 0.6; }
-  90% { opacity: 0.6; }
-  100% { opacity: 0; transform: translateY(-80vh); }
-}
-
-@keyframes shooting-star {
-  0% {
-    transform: translate(0, 0) rotate(-45deg);
-    opacity: 1;
-  }
-
-  20% {
-    transform: translate(-100vw, 100vh) rotate(-45deg);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translate(-100vw, 100vh) rotate(-45deg);
-    opacity: 0;
-  }
-}
 
 @keyframes sprite-walk {
   from {
