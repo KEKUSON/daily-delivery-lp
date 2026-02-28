@@ -9,7 +9,7 @@ export const ShopCard: FC<ShopCardProps> = ({ plan }) => {
   const isRecommended = plan.recommended;
 
   return (
-    <div className={`relative bg-bg-card border-4 ${isRecommended ? 'border-accent-gold transform scale-105 z-10' : 'border-white'} p-6 font-retro transition-all ${isRecommended ? 'hover:scale-110' : 'hover:scale-105'} hover:shadow-[8px_8px_0px_0px_#F8B800] [clip-path:polygon(4px_0,calc(100%-4px)_0,100%_4px,100%_calc(100%-4px),calc(100%-4px)_100%,4px_100%,0_calc(100%-4px),0_4px)]`}>
+    <div className={`relative ${isRecommended ? 'bg-bg-card' : 'bg-bg-secondary'} border-4 ${isRecommended ? 'border-accent-gold transform scale-105 z-10 animate-[border-pulse_2s_steps(2,end)_infinite]' : 'border-white'} p-6 font-retro transition-transform duration-200 [transition-timing-function:steps(3,end)] ${isRecommended ? 'hover:scale-110' : 'hover:scale-105 hover:-translate-y-2'} hover:shadow-[8px_8px_0px_0px_#F8B800] [clip-path:polygon(4px_0,calc(100%-4px)_0,100%_4px,100%_calc(100%-4px),calc(100%-4px)_100%,4px_100%,0_calc(100%-4px),0_4px)]`}>
 
 
       {isRecommended && (

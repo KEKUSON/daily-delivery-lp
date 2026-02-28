@@ -21,6 +21,7 @@
   --animate-fade-in-up: fade-in-up 0.8s ease-out forwards;
   --animate-twinkle: twinkle 3s ease-in-out infinite;
   --animate-shooting-star: shooting-star 4s linear infinite;
+  --animate-border-pulse: border-pulse 2s steps(2, end) infinite;
 }
 
 @keyframes run-in {
@@ -129,9 +130,32 @@
   }
 }
 
+@keyframes border-pulse {
+  0%, 100% { border-color: var(--color-accent-gold); }
+  50% { border-color: var(--color-bg-card); }
+}
+
 body {
   @apply bg-bg-primary text-text font-sans m-0 p-0 overflow-x-hidden;
   line-height: 1.6;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
 }
 
 h1,
@@ -148,6 +172,19 @@ h6,
 /* AI生成したアセット等のドット絵をくっきり表示するためのユーティリティ */
 .pixelated {
   image-rendering: pixelated;
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+/* 横スクロールのスクロールバーを非表示にするユーティリティ */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
 /* スプライトシートアニメーション（1フレーム128px × 4列×4行 = 512px 幅/高さと仮定） */

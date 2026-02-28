@@ -64,7 +64,7 @@ export const Hero: FC = () => {
 
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg-primary"
+      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-bg-primary bg-noise"
       onMouseMove={handleMouseMove}
     >
       {/* Star Background with Parallax */}

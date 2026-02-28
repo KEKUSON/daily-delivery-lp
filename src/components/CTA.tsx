@@ -16,7 +16,10 @@ export const CTA: FC = () => {
   })), []);
 
   return (
-    <section className="py-32 px-4 bg-bg-primary relative overflow-hidden flex flex-col items-center justify-center min-h-[70vh]">
+    <section className="relative py-32 px-4 bg-bg-primary overflow-hidden flex flex-col items-center justify-center min-h-[70vh]">
+      {/* Gradient Transition from Pricing */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-secondary to-transparent z-20 pointer-events-none" />
+
       {/* Background Particles */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         {particlesData.map((p, i) => (
@@ -36,7 +39,7 @@ export const CTA: FC = () => {
 
       <div className="max-w-3xl w-full text-center relative z-10" ref={ref}>
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl text-white mb-12 drop-shadow-[4px_4px_0px_#E40058]">
+          <h2 className="text-5xl md:text-6xl lg:text-7xl text-white mb-12 drop-shadow-[4px_4px_0px_#E40058]">
             冒険に出よう！
           </h2>
 

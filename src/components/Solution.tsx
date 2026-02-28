@@ -14,7 +14,7 @@ export const Solution: FC = () => {
       <div className="max-w-5xl w-full z-10" ref={ref}>
         <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
           <h2 className="text-4xl md:text-5xl text-accent-gold mb-4 drop-shadow-[4px_4px_0px_#F8B800]">
-            <span aria-hidden="true">▶</span> デイリーデリバリー が現れた！
+            <span aria-hidden="true">[!]</span> デイリーデリバリー が現れた！
           </h2>
           <p className="text-xl text-text-muted mb-10">
             あなたの代わりに、AIと専属スタッフが毎日ネタを厳選します。
@@ -31,7 +31,7 @@ export const Solution: FC = () => {
                 }`}
               style={{ transitionDelay: `${400 + index * 200}ms` }}
             >
-              <PixelContainer className="bg-bg-card border-2 border-white p-6 group hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_#00E8D8] transition-all duration-300 h-full">
+              <PixelContainer className="bg-bg-card border-2 border-white p-6 group hover:-translate-y-2 hover:shadow-[8px_8px_0px_0px_#00E8D8] transition-transform duration-200 [transition-timing-function:steps(3,end)] h-full">
                 <div className="text-5xl mb-4 group-hover:scale-110 group-hover:drop-shadow-[4px_4px_0px_#FFFFFF] transition-all" aria-hidden="true">
                   {feature.icon}
                 </div>

@@ -16,15 +16,15 @@ export const Pain: FC = () => {
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-primary to-transparent z-10 pointer-events-none"></div>
 
       <div className="max-w-3xl w-full z-20" ref={ref}>
-        <h2 className="text-3xl md:text-4xl text-center mb-12 text-accent-cyan animate-pulse">
-          ▼ こんな悩み、ありませんか？
+        <h2 className="text-2xl md:text-3xl text-center mb-12 text-accent-cyan animate-pulse">
+          <span aria-hidden="true">┌─ </span>こんな悩み、ありませんか？<span aria-hidden="true"> ─┐</span>
         </h2>
 
         <div className="space-y-6">
           {PAIN_POINTS.map((pain, index) => (
             <div
               key={pain.id}
-              className={`transition-all duration-1000 transform ${isVisible
+              className={`transition-all duration-700 [transition-timing-function:steps(4,end)] transform ${isVisible
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-10'
                 }`}

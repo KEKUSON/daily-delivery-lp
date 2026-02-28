@@ -7,10 +7,13 @@ export const Trust: FC = () => {
   const { ref, isVisible } = useScrollReveal(0.2);
 
   return (
-    <section className="py-20 px-4 bg-bg-primary min-h-screen flex flex-col items-center justify-center">
-      <div className="max-w-3xl w-full" ref={ref}>
+    <section className="relative py-20 px-4 bg-bg-primary min-h-screen flex flex-col items-center justify-center overflow-hidden">
+      {/* Gradient Transition from Sample */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-secondary to-transparent z-20 pointer-events-none" />
+
+      <div className="max-w-3xl w-full z-10" ref={ref}>
         <h2 className="text-3xl md:text-4xl text-center mb-12 text-white">
-          ▼ パーティのステータス
+          <span aria-hidden="true">┌─ </span>パーティのステータス<span aria-hidden="true"> ─┐</span>
         </h2>
 
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
