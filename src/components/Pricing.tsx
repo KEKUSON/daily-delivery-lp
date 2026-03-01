@@ -73,7 +73,7 @@ export const Pricing: FC = () => {
   }, { scope: containerRef });
 
   return (
-    <section className="relative py-20 px-4 bg-bg-secondary min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
+    <section id="pricing-section" className="relative py-20 px-4 bg-bg-secondary min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
       {/* Gradient Transition from Trust */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-primary to-transparent z-20 pointer-events-none" />
 

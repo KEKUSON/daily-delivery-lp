@@ -4,9 +4,10 @@ import { useInView, useReducedMotion } from "motion/react";
 interface CountUpProps {
     end: number;
     duration?: number;
+    suffix?: string;
 }
 
-export function CountUp({ end, duration = 1.5 }: CountUpProps) {
+export function CountUp({ end, duration = 1.5, suffix = '' }: CountUpProps) {
     const [count, setCount] = useState(0);
     const ref = useRef<HTMLSpanElement>(null);
     const isInView = useInView(ref, { once: true, margin: "0px 0px -20% 0px" });
@@ -37,5 +38,5 @@ export function CountUp({ end, duration = 1.5 }: CountUpProps) {
         }
     }, [isInView, end, duration, prefersReducedMotion]);
 
-    return <span ref={ref}>{count}</span>;
+    return <span ref={ref}>{count}{suffix}</span>;
 }

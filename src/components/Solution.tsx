@@ -84,7 +84,7 @@ export const Solution: FC = () => {
   }, { scope: containerRef });
 
   return (
-    <section className="py-20 px-4 bg-bg-primary min-h-screen flex flex-col items-center justify-center relative overflow-hidden" ref={containerRef}>
+    <section id="solution-section" className="py-20 px-4 bg-bg-primary min-h-screen flex flex-col items-center justify-center relative overflow-hidden" ref={containerRef}>
       {/* Gradient Transition from Pain */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-secondary to-transparent z-20 pointer-events-none" />
 

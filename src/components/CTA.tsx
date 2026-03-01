@@ -150,7 +150,7 @@ export const CTA: FC = () => {
   }, []);
 
   return (
-    <section className="relative py-32 px-4 bg-bg-primary overflow-hidden flex flex-col items-center justify-center min-h-[70vh]" ref={sectionRef}>
+    <section id="cta-section" className="relative py-32 px-4 bg-bg-primary overflow-hidden flex flex-col items-center justify-center min-h-[70vh]" ref={sectionRef}>
       {/* Gradient Transition from Pricing */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-secondary to-transparent z-20 pointer-events-none" />
 

@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import type { FC } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -35,6 +35,22 @@ export const DeveloperStory: FC = () => {
                 }
             });
 
+        });
+
+        mm.add("(max-width: 767px)", () => {
+            const lines = gsap.utils.toArray('.story-line') as HTMLElement[];
+            gsap.set(lines, { opacity: 0 });
+            gsap.to(lines, {
+                opacity: 1,
+                stagger: { each: 0.4 },
+                duration: 0.1,
+                ease: "steps(1)",
+                scrollTrigger: {
+                    trigger: textRef.current,
+                    start: "top 75%",
+                    toggleActions: "play none none none"
+                }
+            });
         });
 
         return () => mm.revert();

@@ -72,7 +72,7 @@ export const Sample: FC = () => {
   }, { scope: containerRef });
 
   return (
-    <section className="relative py-20 px-4 bg-bg-secondary min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
+    <section id="sample-section" className="relative py-20 px-4 bg-bg-secondary min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
       {/* Gradient Transition from Solution */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-primary to-transparent z-20 pointer-events-none" />
 
@@ -88,9 +88,11 @@ export const Sample: FC = () => {
                 <RPGWindow title="[!] ITEM GET!" className="p-4 md:p-8 h-full">
                   <div className="space-y-6">
                     <h3 className="text-xl text-accent-gold mb-2"><span aria-hidden="true">▶</span> {article.title}</h3>
-                    <div className="text-sm text-accent-cyan mb-2 break-all">
-                      URL: <a href={article.url} className="underline hover:text-white" target="_blank" rel="noopener noreferrer">{article.url}</a>
-                    </div>
+                    {article.url !== '#' && (
+                      <div className="text-sm text-accent-cyan mb-2 break-all">
+                        URL: <a href={article.url} className="underline hover:text-white" target="_blank" rel="noopener noreferrer">{article.url}</a>
+                      </div>
+                    )}
                     <div className="bg-black/30 p-3 rounded mb-4 text-sm text-gray-300">
                       概要: {article.summary}
                     </div>

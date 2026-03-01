@@ -48,6 +48,9 @@ export const ShopCard: FC<ShopCardProps> = ({ plan }) => {
           <NumberTicker value={plan.price} delay={0.3} />G
           <span className="text-sm text-text-muted">/日</span>
         </div>
+        <div className="text-sm text-text-muted mt-1">
+          月額 ¥{plan.priceYen.toLocaleString()}（税込）
+        </div>
       </div>
 
       <div className="border-t-2 border-dashed border-white my-4" />

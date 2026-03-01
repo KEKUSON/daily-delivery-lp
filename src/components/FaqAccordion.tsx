@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import type { FC } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -25,6 +25,26 @@ const FAQS: FAQItem[] = [
         id: 'q3',
         question: '解約はいつでもできる？',
         answer: 'はい、いつでも可能です（※次回から魔法が解けます）。お問い合わせフォーム、またはメンバーズエリアからワンクリックでお手続きいただけます。'
+    },
+    {
+        id: 'q4',
+        question: '支払い方法は？',
+        answer: '銀行振込、またはPayPalでのお支払いに対応しています。'
+    },
+    {
+        id: 'q5',
+        question: '届くのは何時ごろ？',
+        answer: '毎朝9時までにChatworkまたはLINEでお届けします。'
+    },
+    {
+        id: 'q6',
+        question: 'スマホでも確認できる？',
+        answer: 'はい。ChatworkアプリまたはLINEアプリでスマートフォンからも確認できます。'
+    },
+    {
+        id: 'q7',
+        question: 'エンタメ以外のジャンルにも対応？',
+        answer: '現在はエンタメ・芸能スキャンダルに特化していますが、ご要望に応じてカスタマイズも可能です。お気軽にご相談ください。'
     }
 ];
 
@@ -55,11 +75,10 @@ export const FaqAccordion: FC = () => {
 
     const toggleAccordion = (id: string) => {
         setOpenId(openId === id ? null : id);
-        // 8-bit cursor sound effect could go here
     };
 
     return (
-        <section className="py-20 px-4 bg-bg-secondary relative" ref={containerRef}>
+        <section id="faq-section" className="py-20 px-4 bg-bg-secondary relative" ref={containerRef}>
             <div className="max-w-3xl mx-auto z-10 relative">
                 <h2 className="text-3xl md:text-4xl text-center text-accent-cyan mb-12 drop-shadow-[4px_4px_0px_#4A90E2]">
                     <span aria-hidden="true">？</span> よくある質問 (Q&A) <span aria-hidden="true">？</span>
@@ -77,7 +96,7 @@ export const FaqAccordion: FC = () => {
                                     aria-controls={`faq-answer-${faq.id}`}
                                 >
                                     <RPGWindow
-                                        title={isOpen ? "[▼] 開く" : "[▶] 選択"}
+                                        title={isOpen ? "[▼] 閉じる" : "[▶] 選択"}
                                         className="p-4 md:p-6 transition-colors hover:border-accent-gold cursor-pointer"
                                     >
                                         <div className="flex items-center">

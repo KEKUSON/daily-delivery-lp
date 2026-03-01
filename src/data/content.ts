@@ -4,6 +4,8 @@ export const PAIN_POINTS: PainPoint[] = [
   { id: 'pain-1', text: '毎日ネタ探しで2時間消える…' },
   { id: 'pain-2', text: 'トレンドに乗り遅れて再生数が…' },
   { id: 'pain-3', text: 'タイトルが思いつかない…' },
+  { id: 'pain-4', text: '他のチャンネルとネタが被る…' },
+  { id: 'pain-5', text: '情報が古くてコメ欄で突っ込まれる…' },
 ];
 
 export const FEATURES: Feature[] = [
@@ -32,7 +34,8 @@ export const PLANS: Plan[] = [
     id: 'ume',
     name: '梅プラン',
     price: 200,
-    description: 'まずはお試しに！',
+    priceYen: 2980,
+    description: 'まずはお試し！',
     features: ['1日2記事', 'タイトル各3案'],
     level: 1,
   },
@@ -40,6 +43,7 @@ export const PLANS: Plan[] = [
     id: 'take',
     name: '竹プラン',
     price: 300,
+    priceYen: 4980,
     description: 'ネタ選び放題！',
     features: ['1日4記事', 'タイトル各3案'],
     recommended: true,
@@ -49,6 +53,7 @@ export const PLANS: Plan[] = [
     id: 'matsu',
     name: '松プラン',
     price: 500,
+    priceYen: 9800,
     description: '全弾装填！',
     features: ['1日6記事以上', 'タイトル各3案'],
     level: 3,
@@ -56,7 +61,7 @@ export const PLANS: Plan[] = [
 ];
 
 export const LINKS = {
-  form: '#GOOGLE_FORM_URL',
+  form: 'https://forms.gle/PLACEHOLDER',  // 要差替え: 実際のGoogle Form URLに設定
   xDm: 'https://x.com/keku723306'
 };
 
@@ -65,24 +70,57 @@ export const PRICING_DESCRIPTION = "コーヒー1杯より安い、あなただ�
 export const SAMPLE_ARTICLES: SampleArticle[] = [
   {
     id: 'sample-1',
-    title: '記事①：大物俳優の豪邸売却',
-    url: 'https://example.com/news/12345',
-    summary: '石田純一が3億円と言われる豪邸を手放したことが発覚。背景には〇〇の事情が...',
+    title: '記事①：芸能人の不倫報道',
+    url: '#',
+    summary: '人気俳優Xの不倫が週刊誌でスクープ。所属事務所は「事実確認中」とコメント。SNSではトレンド入りし...',
     titleOptions: [
-      '石田純一が豪邸を手放した理由',
-      '石田純一の今の様子がヤバい',
-      '3億円豪邸売却の裏に何があったのか'
+      '人気俳優Xの衝撃不倫の真相',
+      'まさかのXが不倫で大炎上',
+      'Xの不倫相手が判明した結果...'
     ]
   },
   {
     id: 'sample-2',
-    title: '記事②：人気アイドルの熱愛発覚',
-    url: 'https://example.com/news/67890',
-    summary: '超人気アイドルグループのメンバーAと、若手俳優Bのお泊まり愛が週刊誌にスクープされた。',
+    title: '記事②：ワイドショー出演NGの真相',
+    url: '#',
+    summary: '某有名声優が突然の謹慎を発表。所属事務所は「私人としての発言」と説明しているが...',
     titleOptions: [
-      '人気アイドル〇〇の熱愛が発覚',
-      '〇〇と〇〇の関係がヤバい',
-      '熱愛スクープの裏に何があったのか'
+      '声優Xが謹慎に至った理由',
+      'Xの発言が物議を醸している',
+      '所属事務所がやっと重い腰を上げた'
+    ]
+  },
+  {
+    id: 'sample-3',
+    title: '記事③：アイドルの衝撃卒業発表',
+    url: '#',
+    summary: '大人気アイドルグループのセンターを務めていたXが、突如卒業を発表。ファンからは悲鳴と期待の声が殺到...',
+    titleOptions: [
+      'X卒業の真相が発覚',
+      'メンバーが明かした卒業の理由',
+      'センターの抜けた穴をどう埋めるのか'
+    ]
+  },
+  {
+    id: 'sample-4',
+    title: '記事④：企業トップの不祥事',
+    url: '#',
+    summary: '上場企業のCEOが、海外出張中に若い女性との関係をスクープされた。株価への影響は...',
+    titleOptions: [
+      'CEOの不祥事が発覚した結果',
+      '企業の対応が、逆に炎上した理由',
+      '株価に影響大！今後の展開は'
+    ]
+  },
+  {
+    id: 'sample-5',
+    title: '記事⑤：インフルエンサーの薬物疑惑',
+    url: '#',
+    summary: 'SNSで億単位の収益を上げている人気インフルエンサーが、法執行機関による調査対象になっている可能性が浮上...',
+    titleOptions: [
+      'インフルエンサーXに重大疑惑',
+      'なぜ今、調査対象になっているのか',
+      '関与の可能性を示した証拠とは'
     ]
   }
 ];

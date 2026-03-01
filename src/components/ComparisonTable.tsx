@@ -29,7 +29,7 @@ export const ComparisonTable: FC = () => {
     }, { scope: containerRef });
 
     return (
-        <section className="py-20 px-4 bg-bg-primary relative" ref={containerRef}>
+        <section id="comparison-section" className="py-20 px-4 bg-bg-primary relative" ref={containerRef}>
             <div className="max-w-4xl mx-auto z-10 relative">
                 <h2 className="text-3xl md:text-4xl text-center text-accent-gold mb-12 drop-shadow-[4px_4px_0px_#F8B800]">
                     <span aria-hidden="true">▼</span> 圧倒的な差は歴然
