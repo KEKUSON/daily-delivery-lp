@@ -176,7 +176,7 @@ export const CTA: FC = () => {
                 items={[
                   "毎日AIが選んだスキャンダル記事が届く",
                   "YouTube Shorts特化のタイトル案付き",
-                  "月額たったの数千円で時間が買える！"
+                  "缶コーヒー1本分で2時間が買える！"
                 ]}
                 icon="✔"
                 iconColor="text-accent-gold"

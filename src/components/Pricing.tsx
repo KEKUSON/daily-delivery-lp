@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import type { FC } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
-import { PLANS, PRICING_DESCRIPTION } from '../data/content';
+import { PRODUCTS, PRICING_DESCRIPTION } from '../data/content';
 import { ShopCard } from './ui/ShopCard';
 
 export const Pricing: FC = () => {
@@ -87,15 +87,19 @@ export const Pricing: FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center" ref={gridRef}>
-          {PLANS.map((plan) => (
-            <div 
-              key={plan.id}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-3xl mx-auto" ref={gridRef}>
+          {PRODUCTS.map((product) => (
+            <div
+              key={product.id}
               className="shop-card"
             >
-              <ShopCard plan={plan} />
+              <ShopCard product={product} />
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-12 text-lg text-text-muted font-retro">
+          <p>まずは<span className="text-accent-gold font-bold">厳選ネタ1記事（100円）</span>からお試しください！</p>
         </div>
       </div>
     </section>

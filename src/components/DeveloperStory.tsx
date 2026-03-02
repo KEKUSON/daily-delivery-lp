@@ -69,7 +69,7 @@ export const DeveloperStory: FC = () => {
                 </h2>
 
                 {/* Dramatic text area */}
-                <div ref={textRef} className="space-y-8 font-retro text-lg md:text-xl text-center leading-relaxed text-gray-300">
+                <div ref={textRef} className="space-y-8 font-retro text-xl md:text-2xl text-center leading-relaxed text-gray-300">
                     <p className="story-line">
                         私自身、YouTubeディレクターとして
                     </p>

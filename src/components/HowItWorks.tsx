@@ -103,7 +103,7 @@ export const HowItWorks: FC = () => {
                 className="w-full max-w-sm"
               >
                 <h3 className="text-xl text-white font-bold mb-2">{s.title}</h3>
-                <p className="text-text-muted text-sm leading-relaxed">{s.description}</p>
+                <p className="text-text-muted text-base leading-relaxed">{s.description}</p>
               </PrepPointBox>
 
               {index < steps.length - 1 && (

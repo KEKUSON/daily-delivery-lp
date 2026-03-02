@@ -101,7 +101,7 @@ export const FaqAccordion: FC = () => {
                                     >
                                         <div className="flex items-center">
                                             <span className="text-accent-gold mr-3">Q.</span>
-                                            <span className="text-white text-lg">{faq.question}</span>
+                                            <span className="text-white text-xl">{faq.question}</span>
                                         </div>
                                     </RPGWindow>
                                 </button>
@@ -112,7 +112,7 @@ export const FaqAccordion: FC = () => {
                                     className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[500px] mt-2 opacity-100' : 'max-h-0 opacity-0'}`}
                                     style={{ transitionTimingFunction: 'steps(5)' }} // Pixelated/choppy feel
                                 >
-                                    <div className="bg-bg-primary border-2 border-dashed border-accent-cyan/50 p-4 md:p-6 rounded font-retro text-gray-300">
+                                    <div className="bg-bg-primary border-2 border-dashed border-accent-cyan/50 p-4 md:p-6 rounded font-retro text-base md:text-lg text-gray-300">
                                         <span className="text-accent-cyan mr-2 font-bold">A.</span>
                                         {faq.answer}
                                     </div>

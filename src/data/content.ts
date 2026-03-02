@@ -1,11 +1,11 @@
-import type { Plan, Feature, PainPoint, SampleArticle } from '../types';
+import type { Product, Feature, PainPoint, SampleArticle } from '../types';
 
 export const PAIN_POINTS: PainPoint[] = [
   { id: 'pain-1', text: '毎日ネタ探しで2時間消える…' },
   { id: 'pain-2', text: 'トレンドに乗り遅れて再生数が…' },
-  { id: 'pain-3', text: 'タイトルが思いつかない…' },
+  { id: 'pain-3', text: 'タイトルが想法かない…' },
   { id: 'pain-4', text: '他のチャンネルとネタが被る…' },
-  { id: 'pain-5', text: '情報が古くてコメ欄で突っ込まれる…' },
+  { id: 'pain-5', text: '情報が古くてコメ欄でっ込まれる…' },
 ];
 
 export const FEATURES: Feature[] = [
@@ -29,35 +29,34 @@ export const FEATURES: Feature[] = [
   }
 ];
 
-export const PLANS: Plan[] = [
+export const PRODUCTS: Product[] = [
   {
-    id: 'ume',
-    name: '梅プラン',
-    price: 200,
-    priceYen: 2980,
-    description: 'まずはお試し！',
-    features: ['1日2記事', 'タイトル各3案'],
-    level: 1,
-  },
-  {
-    id: 'take',
-    name: '竹プラン',
+    id: 'link-bundle',
+    name: 'リンク束配信',
+    icon: '📜',
     price: 300,
-    priceYen: 4980,
-    description: 'ネタ選び放題！',
-    features: ['1日4記事', 'タイトル各3案'],
-    recommended: true,
-    level: 2,
+    unit: '日',
+    description: 'まずは情報収集の自動化から！',
+    features: [
+      'パーソナライズ済み30件/日',
+      'ジャンル別フィルター対応',
+      'Chatwork / LINE でお届け',
+    ],
   },
   {
-    id: 'matsu',
-    name: '松プラン',
-    price: 500,
-    priceYen: 9800,
-    description: '全弾装填！',
-    features: ['1日6記事以上', 'タイトル各3案'],
-    level: 3,
-  }
+    id: 'curated-article',
+    name: '厳選ネタ配信',
+    icon: '⚔️',
+    price: 100,
+    unit: '件',
+    description: '選ぶだけで即動画化！',
+    features: [
+      '厳選1記事 + タイトル案3つ',
+      'YouTube Shorts特化の切り口',
+      'そのまま台本に使える品質',
+    ],
+    highlight: true,
+  },
 ];
 
 export const LINKS = {
@@ -65,7 +64,7 @@ export const LINKS = {
   xDm: 'https://x.com/keku723306'
 };
 
-export const PRICING_DESCRIPTION = "コーヒー1杯より安い、あなただけの武器屋。";
+export const PRICING_DESCRIPTION = "缶コーヒー1本分で、あなたの2時間を買い戻す。";
 
 export const SAMPLE_ARTICLES: SampleArticle[] = [
   {

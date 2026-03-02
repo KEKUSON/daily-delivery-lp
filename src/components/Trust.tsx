@@ -127,19 +127,19 @@ export const Trust: FC = () => {
               <div className="text-3xl md:text-4xl text-accent-gold font-bold">
                 <CountUp end={90} suffix="日+" duration={2} />
               </div>
-              <div className="text-sm text-text-muted mt-2 font-retro">累計配信日数</div>
+              <div className="text-base text-text-muted mt-2 font-retro">累計配信日数</div>
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl text-accent-cyan font-bold">
                 <CountUp end={500} suffix="+" duration={2} />
               </div>
-              <div className="text-sm text-text-muted mt-2 font-retro">配信記事総数</div>
+              <div className="text-base text-text-muted mt-2 font-retro">配信記事総数</div>
             </div>
             <div className="text-center">
               <div className="text-3xl md:text-4xl text-accent font-bold">
                 <CountUp end={5} suffix="+" duration={2} />
               </div>
-              <div className="text-sm text-text-muted mt-2 font-retro">利用チャンネル数</div>
+              <div className="text-base text-text-muted mt-2 font-retro">利用チャンネル数</div>
             </div>
           </div>
         </div>

@@ -80,7 +80,7 @@ export const Pain: FC = () => {
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-primary to-transparent z-10 pointer-events-none"></div>
 
       <div className="max-w-3xl w-full z-20" ref={containerRef}>
-        <h2 ref={titleRef} className="text-2xl md:text-3xl text-center mb-12 text-accent-cyan animate-pulse">
+        <h2 ref={titleRef} className="text-3xl md:text-4xl text-center mb-12 text-accent-cyan animate-pulse">
           <span aria-hidden="true">┌─ </span>こんな悩み、ありませんか？<span aria-hidden="true"> ─┐</span>
         </h2>
 
@@ -100,7 +100,7 @@ export const Pain: FC = () => {
                     direction={isEven ? 'right' : 'left'}
                     name={`村人 ${String.fromCharCode(65 + index)}`}
                   >
-                    <div className="text-lg md:text-xl font-retro pt-1">
+                    <div className="text-xl md:text-2xl font-retro pt-1">
                       「{pain.text}」
                     </div>
                   </SpeechBalloon>

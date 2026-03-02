@@ -48,7 +48,7 @@ export const ComparisonTable: FC = () => {
                             <tbody>
                                 <tr className="comparison-row border-b-2 border-gray-800">
                                     <td className="p-4 text-white">作業時間</td>
-                                    <td className="p-4 text-center text-red-400 border-l-2 border-accent-blue/30 text-lg">
+                                    <td className="p-4 text-center text-red-400 border-l-2 border-accent-blue/30 text-xl">
                                         毎日1〜2時間
                                     </td>
                                     <td className="p-4 text-center text-accent-gold font-bold border-l-2 border-accent-blue/30 text-xl bg-accent-blue/10">
@@ -57,7 +57,7 @@ export const ComparisonTable: FC = () => {
                                 </tr>
                                 <tr className="comparison-row border-b-2 border-gray-800">
                                     <td className="p-4 text-white">精神的疲労</td>
-                                    <td className="p-4 text-center text-red-400 border-l-2 border-accent-blue/30 text-lg">
+                                    <td className="p-4 text-center text-red-400 border-l-2 border-accent-blue/30 text-xl">
                                         💀 絶望的
                                     </td>
                                     <td className="p-4 text-center text-accent-cyan font-bold border-l-2 border-accent-blue/30 text-xl bg-accent-blue/10">

@@ -1,12 +1,12 @@
-export interface Plan {
+export interface Product {
   id: string;
   name: string;
-  price: number;        // ゲーム内通貨 (G)
-  priceYen: number;    // 実価格 (円/月)
+  icon: string;
+  price: number;         // 円
+  unit: string;          // '日' or '件'
   description: string;
   features: string[];
-  recommended?: boolean;
-  level?: number;
+  highlight?: boolean;  // 強調表示
 }
 
 export interface Feature {
