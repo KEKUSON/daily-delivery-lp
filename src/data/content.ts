@@ -3,9 +3,9 @@ import type { Product, Feature, PainPoint, SampleArticle } from '../types';
 export const PAIN_POINTS: PainPoint[] = [
   { id: 'pain-1', text: '毎日ネタ探しで2時間消える…' },
   { id: 'pain-2', text: 'トレンドに乗り遅れて再生数が…' },
-  { id: 'pain-3', text: 'タイトルが想法かない…' },
+  { id: 'pain-3', text: 'タイトルが思いつかない…' },
   { id: 'pain-4', text: '他のチャンネルとネタが被る…' },
-  { id: 'pain-5', text: '情報が古くてコメ欄でっ込まれる…' },
+  { id: 'pain-5', text: '情報が古くてコメ欄で突っ込まれる…' },
 ];
 
 export const FEATURES: Feature[] = [
