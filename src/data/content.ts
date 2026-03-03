@@ -60,7 +60,7 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const LINKS = {
-  form: 'https://forms.gle/PLACEHOLDER',  // 要差替え: 実際のGoogle Form URLに設定
+  form: 'https://docs.google.com/forms/d/e/1FAIpQLSfW-WFr4fhMA5OilXCGNFNmJOtlthXoR29sVxXeHSwtxMd5JQ/viewform',
   xDm: 'https://x.com/keku723306'
 };
 
