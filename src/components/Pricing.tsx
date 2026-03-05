@@ -2,8 +2,12 @@ import { useRef } from 'react';
 import type { FC } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PRODUCTS, PRICING_DESCRIPTION } from '../data/content';
 import { ShopCard } from './ui/ShopCard';
+import dragonBg from '../assets/infographics/dragon.webp';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const Pricing: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -69,11 +73,35 @@ export const Pricing: FC = () => {
       });
     });
 
+    // Background scale animation
+    gsap.fromTo('.pricing-bg',
+      { scale: 0.9, opacity: 0 },
+      {
+        scale: 1,
+        opacity: 0.25,
+        duration: 1,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
     return () => mm.revert();
   }, { scope: containerRef });
 
   return (
     <section id="pricing-section" className="relative py-20 px-4 bg-bg-secondary min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
+      {/* Background Layer */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={dragonBg}
+          alt=""
+          className="w-full h-full object-cover opacity-0 pricing-bg"
+        />
+      </div>
+
       {/* Gradient Transition from Trust */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-primary to-transparent z-20 pointer-events-none" />
 

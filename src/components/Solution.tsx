@@ -8,6 +8,7 @@ import { PrepPointBox } from './ui/PrepPointBox';
 import { CheckList } from './ui/CheckList';
 import { AnimatedGridPattern } from './ui/AnimatedGridPattern';
 import { cn } from '../lib/utils';
+import castleBg from '../assets/infographics/castle.png';
 
 export const Solution: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,6 +19,18 @@ export const Solution: FC = () => {
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 768px)", () => {
+      // Background Parallax
+      gsap.to('.castle-bg', {
+        y: 100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
       // Title scrub animation
       gsap.from(titleRef.current, {
         scale: 0.5,
@@ -84,7 +97,17 @@ export const Solution: FC = () => {
   }, { scope: containerRef });
 
   return (
-    <section id="solution-section" className="py-20 px-4 bg-bg-primary min-h-screen flex flex-col items-center justify-center relative overflow-hidden" ref={containerRef}>
+    <section id="solution-section" className="py-20 px-4 bg-bg-primary min-h-screen flex flex-col items-center justify-center relative overflow-hidden" ref={containerRef}>   
+      {/* Background Image Layer */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={castleBg}
+          alt=""
+          className="castle-bg w-full h-full object-cover opacity-20"
+          onError={(e) => e.currentTarget.style.display = 'none'}
+        />
+      </div>
+
       {/* Gradient Transition from Pain */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-secondary to-transparent z-20 pointer-events-none" />
 
@@ -94,17 +117,16 @@ export const Solution: FC = () => {
         duration={4}
         repeatDelay={1}
         className={cn(
-          "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]",
+          "[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]",    
           "absolute inset-0 z-0 fill-accent-gold/20 stroke-accent-gold/10"
         )}
       />
-
       <div className="max-w-5xl w-full z-10">
         <div className="text-center mb-16" ref={titleRef}>
-          <h2 className="text-4xl md:text-5xl text-accent-gold mb-4 drop-shadow-[4px_4px_0px_#F8B800]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-accent-gold mb-4 drop-shadow-[4px_4px_0px_#F8B800] break-keep">
             <span aria-hidden="true">[!]</span> デイリーデリバリー が現れた！
           </h2>
-          <p className="text-xl text-text-muted mb-10">
+          <p className="text-lg sm:text-xl md:text-2xl text-text-muted mb-10 break-keep">
             あなたの代わりに、AIと専属スタッフが毎日ネタを厳選します。
           </p>
         </div>
@@ -122,7 +144,7 @@ export const Solution: FC = () => {
                   variant={index === 1 ? 'accent' : 'primary'}
                   className="hover:-translate-y-1 transition-transform duration-200"
                 >
-                  <h3 className="text-xl md:text-2xl text-accent-cyan mb-4 font-bold border-b-2 border-dashed border-gray-600 pb-2 inline-block">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl text-accent-cyan mb-4 font-bold border-b-2 border-dashed border-gray-600 pb-2 inline-block break-keep">
                     {feature.title}
                   </h3>
                   <div className="mt-2">

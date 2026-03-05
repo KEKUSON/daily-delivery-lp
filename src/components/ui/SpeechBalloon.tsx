@@ -26,17 +26,17 @@ export const SpeechBalloon: FC<SpeechBalloonProps> = ({
             <div className="flex flex-col items-center gap-2 shrink-0">
                 <div className="w-16 h-16 md:w-20 md:h-20 border-2 border-white rounded bg-black overflow-hidden bg-noise">
                     <img
-                        src={avatarSrc}
-                        alt={avatarAlt}
-                        className="w-full h-full object-cover pixelated"
-                        loading="lazy"
-                    />
-                </div>
+                      src={avatarSrc}
+                      alt={avatarAlt}
+                      className="w-full h-full object-cover pixelated"
+                      loading="lazy"
+                      onError={(e) => e.currentTarget.style.display = 'none'}
+                    />                </div>
                 {name && <span className="text-xs text-text-muted font-retro">{name}</span>}
             </div>
 
             <div className={cn("relative flex-1 max-w-2xl mt-2", isLeft ? "ml-2" : "mr-2")}>
-                <PixelContainer className="bg-bg-card border-2 border-white p-4 md:p-6 text-sm md:text-base leading-relaxed relative">
+                <PixelContainer className="bg-bg-card border-2 border-white p-4 md:p-6 text-base md:text-lg leading-relaxed relative">
                     {/* SWELL-like Speech Bubble Tail using a rotated square for retro pixel feel */}
                     <div
                         aria-hidden="true"

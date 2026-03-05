@@ -42,6 +42,18 @@ export const Hero: FC = () => {
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 768px)", () => {
+      // Parallax for background image
+      gsap.to('.hero-bg', {
+        y: -100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
       // Parallax for content and scale down
       gsap.to(contentRef.current, {
         y: -200,
@@ -241,12 +253,12 @@ export const Hero: FC = () => {
           </div>
 
           {/* Typing Text */}
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-retro mb-6 text-white h-20 md:h-24 flex items-center">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-retro mb-6 text-white h-24 sm:h-28 md:h-32 flex items-center break-keep">
             {text}
             <span className="animate-pulse ml-1" aria-hidden="true">_</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-text-muted font-sans mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-text-muted font-sans mb-10 max-w-2xl mx-auto leading-relaxed">
             スキャンダル速報を毎朝お届け。<br className="md:hidden" />
             ショート動画のネタ、もう困らない。
           </p>
@@ -257,7 +269,7 @@ export const Hero: FC = () => {
             target="_blank"
             rel="noopener noreferrer"
             pulse={true}
-            className="w-full sm:w-auto text-xl px-8 py-4"
+            className="w-full sm:w-auto text-2xl px-10 py-5"
           >
             <span aria-hidden="true">▶</span> はじめる
           </PixelButton>

@@ -6,6 +6,9 @@ import { StatusBar } from './ui/StatusBar';
 import { PixelContainer } from './ui/PixelContainer';
 import { CountUp } from './ui/CountUp';
 import { SpeechBalloon } from './ui/SpeechBalloon';
+import demonKingBg from '../assets/infographics/demon_king.webp';
+import npcTrustA from '../assets/sprites/KEKU.png';
+import npcTrustB from '../assets/sprites/man.png';
 
 export const Trust: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -71,11 +74,21 @@ export const Trust: FC = () => {
 
   return (
     <section id="trust-section" className="relative py-20 px-4 bg-bg-primary min-h-screen flex flex-col items-center justify-center overflow-hidden" ref={containerRef}>
+      {/* Background Image Layer */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={demonKingBg}
+          alt=""
+          className="w-full h-full object-cover opacity-30"
+          onError={(e) => e.currentTarget.style.display = 'none'}
+        />
+      </div>
+
       {/* Gradient Transition from Sample */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-bg-secondary to-transparent z-20 pointer-events-none" />
 
       <div className="max-w-3xl w-full z-10">
-        <h2 ref={titleRef} className="text-3xl md:text-4xl text-center mb-12 text-white">
+        <h2 ref={titleRef} className="text-3xl sm:text-4xl md:text-5xl text-center mb-12 text-white break-keep">
           <span aria-hidden="true">┌─ </span>パーティのステータス<span aria-hidden="true"> ─┐</span>
         </h2>
 
@@ -124,19 +137,19 @@ export const Trust: FC = () => {
         <div className="trust-stats mt-12">
           <div className="grid grid-cols-3 gap-4 max-w-2xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl text-accent-gold font-bold">
+              <div className="text-2xl sm:text-3xl md:text-4xl text-accent-gold font-bold whitespace-nowrap">
                 <CountUp end={90} suffix="日+" duration={2} />
               </div>
               <div className="text-base text-text-muted mt-2 font-retro">累計配信日数</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl text-accent-cyan font-bold">
+              <div className="text-2xl sm:text-3xl md:text-4xl text-accent-cyan font-bold whitespace-nowrap">
                 <CountUp end={500} suffix="+" duration={2} />
               </div>
               <div className="text-base text-text-muted mt-2 font-retro">配信記事総数</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl text-accent font-bold">
+              <div className="text-2xl sm:text-3xl md:text-4xl text-accent font-bold whitespace-nowrap">
                 <CountUp end={5} suffix="+" duration={2} />
               </div>
               <div className="text-base text-text-muted mt-2 font-retro">利用チャンネル数</div>
@@ -153,7 +166,7 @@ export const Trust: FC = () => {
           </div>
 
           <SpeechBalloon
-            avatarSrc="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23333' width='100' height='100'/%3E%3Ctext x='50' y='60' text-anchor='middle' fill='%23666' font-size='40'%3E?%3C/text%3E%3C/svg%3E"
+            avatarSrc={npcTrustA}
             avatarAlt="ユーザーA"
             name="YouTuber A様"
           >
@@ -162,7 +175,7 @@ export const Trust: FC = () => {
           </SpeechBalloon>
 
           <SpeechBalloon
-            avatarSrc="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23333' width='100' height='100'/%3E%3Ctext x='50' y='60' text-anchor='middle' fill='%23666' font-size='40'%3E?%3C/text%3E%3C/svg%3E"
+            avatarSrc={npcTrustB}
             avatarAlt="ユーザーB"
             direction="right"
             name="チャンネル登録者5万人"

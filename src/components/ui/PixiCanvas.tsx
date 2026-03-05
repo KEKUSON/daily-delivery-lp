@@ -42,53 +42,58 @@ export const PixiCanvas = ({ onInit, className = '' }: PixiCanvasProps) => {
       const container = containerRef.current;
       if (!container) return;
 
-      const app = new PIXI.Application();
-      await app.init({
-        backgroundAlpha: 0,
-        antialias: false,
-        // Force resolution 1 for all devices to maintain true pixel art aesthetic
-        resolution: 1,
-        autoDensity: true,
-        resizeTo: container,
-        // NES aesthetic: pixel snapping
-        roundPixels: true,
-      });
+      try {
+        const app = new PIXI.Application();
+        await app.init({
+          backgroundAlpha: 0,
+          antialias: false,
+          // Force resolution 1 for all devices to maintain true pixel art aesthetic
+          resolution: 1,
+          autoDensity: true,
+          resizeTo: container,
+          // NES aesthetic: pixel snapping
+          roundPixels: true,
+        });
 
-      if (!isMounted) {
-        app.destroy(true, { children: true });
-        return;
-      }
-
-      appRef.current = app;
-      
-      // Ensure canvas is correctly positioned and pixelated
-      const canvas = app.canvas;
-      canvas.style.position = 'absolute';
-      canvas.style.top = '0';
-      canvas.style.left = '0';
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-      canvas.style.pointerEvents = 'none';
-      canvas.style.zIndex = '0';
-      canvas.style.imageRendering = 'pixelated';
-
-      container.appendChild(canvas);
-
-      cleanupFn = onInitRef.current(app);
-
-      // Visibility API for background tab optimization
-      const handleVisibilityChange = () => {
-        if (document.visibilityState === 'hidden') {
-          app.ticker.stop();
-        } else {
-          app.ticker.start();
+        if (!isMounted) {
+          app.destroy(true, { children: true });
+          return;
         }
-      };
 
-      document.addEventListener('visibilitychange', handleVisibilityChange);
-      cleanupVisibility = () => {
-        document.removeEventListener('visibilitychange', handleVisibilityChange);
-      };
+        appRef.current = app;
+        
+        // Ensure canvas is correctly positioned and pixelated
+        const canvas = app.canvas;
+        canvas.style.position = 'absolute';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '0';
+        canvas.style.imageRendering = 'pixelated';
+
+        container.appendChild(canvas);
+
+        cleanupFn = onInitRef.current(app);
+
+        // Visibility API for background tab optimization
+        const handleVisibilityChange = () => {
+          if (document.visibilityState === 'hidden') {
+            app.ticker.stop();
+          } else {
+            app.ticker.start();
+          }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        cleanupVisibility = () => {
+          document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+      } catch (error) {
+        console.error('Failed to initialize PIXI Application. WebGL context might be unavailable or GPU memory exhausted.', error);
+        // Fallback: The component will just render an empty div, which is a safe graceful degradation.
+      }
     };
 
     initPixi();
